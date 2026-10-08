@@ -25,10 +25,10 @@ from bs4 import BeautifulSoup
 SOURCE = "http://vahope.net"
 HOSTS = {"vahope.net", "www.vahope.net"}
 OUT = Path("site")
-MAX_PAGES = 350
-MAX_ASSETS = 2200
-MAX_BYTES = 180 * 1024 * 1024
-MAX_FILE_BYTES = 40 * 1024 * 1024
+MAX_PAGES = 1000
+MAX_ASSETS = 6000
+MAX_BYTES = 700 * 1024 * 1024
+MAX_FILE_BYTES = 95 * 1024 * 1024
 CACHE_KEYS = {"update", "ver", "v", "_", "cb", "cache", "cachebuster", "timestamp", "ts", "t"}
 DANGEROUS_WORDS = {"logout", "login", "register", "signup", "write", "delete", "modify", "admin"}
 ASSET_EXTS = {
