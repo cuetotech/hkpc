@@ -44,6 +44,30 @@
           "period": 60
         }
       }
+    ],
+    "durable_objects": {
+      "bindings": [
+        {
+          "name": "TRANSLATION_CACHE",
+          "class_name": "TranslationCache"
+        }
+      ]
+    }
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "TRANSLATION_CACHE",
+        "class_name": "TranslationCache"
+      }
     ]
-  }
+  },
+  "migrations": [
+    {
+      "tag": "translation-cache-v1",
+      "new_sqlite_classes": [
+        "TranslationCache"
+      ]
+    }
+  ]
 }
