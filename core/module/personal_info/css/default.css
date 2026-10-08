@@ -1,0 +1,71 @@
+@charset "utf-8";
+@import url('../core/fonts/webfonts/font001.css'); /* 나눔고딕 font-family: Nanum Gothic; */
+@import url('../core/fonts/webfonts/font002.css'); /* 나눔명조 font-family: Nanum Myeongjo; */
+@import url('../core/fonts/webfonts/font003.css'); /* 나눔손글씨 font-family: Nanum Pen Script; */
+@import url('../core/fonts/webfonts/font004.css'); /* 나눔붓글씨 font-family: Nanum Brush Script; */
+@import url('../core/fonts/webfonts/font006.css'); /* 나눔바른고딕 font-family: NanumBarunGothic; */
+@import url('../core/fonts/webfonts/font007.css'); /*한나 font-family:*/
+@import url('../core/fonts/webfonts/font008.css'); /*제주고딕 font-family:*/
+@import url('../core/fonts/webfonts/font009.css'); /*제주한라산 font-family:*/
+@import url('../core/fonts/webfonts/font010.css'); /*제주명조 font-family:*/
+@import url('../core/fonts/webfonts/font011.css'); /*KoPub Batang font-family:*/
+
+
+@import url(http://fonts.googleapis.com/earlyaccess/jejugothic.css); /* 제주고딕'font-family: Jeju Gothic', serif*/
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+ 
+html, button, input, select, textarea {font-family: 'Nanum Gothic';}
+pre, code, kbd, samp {font-family: 'Nanum Gothic Coding'; _font-family: 'Nanum Gothic Coding';}
+input, textarea, select {font-family: 'Nanum Gothic';}
+
+#main article .post_navigation {
+    text-align:center;
+    margin-top:15px;
+    margin-bottom:15px;
+}
+#main article span.post_navigation_link {
+    display:inline-block;
+    width:48%;
+    font-size:110%;
+}
+
+html{ margin: 0; padding: 0; font-family: 'Nanum Gothic' !important;}
+h1, h2, h3, h4, h5, h6 { margin:0; padding:0;}
+form, ul, li, dl, dt, dd, p { margin:0; padding:0;}
+th { text-align: center;}
+fieldset, legend { border: none; margin:0; padding:0;}
+#accessibility, legend, caption { display: none;}
+
+body{ background: url('../images/main/bg.gif'); font-size: 12px; color: #777; line-height:160%; margin: 0; padding: 0;overflow-x:hidden; font-weight:normal;  font-family: 'Nanum Gothic' !important;}
+img { margin: 0px; padding: 0px; border: 0px none;}
+select { margin: 0; padding: 0;}
+input { margin: 0; padding: 0;}
+ul li { margin:0px; padding:0px; list-style:none; line-height:160%; vertical-align: middle;}
+
+/* li 왼쪽정렬 */
+.ul li{ margin:0px; padding:0px; list-style:none; line-height:160%; vertical-align: middle; float:left;} 
+/* li 오른쪽 정렬 */
+.ur li{ margin:0px; padding:0px; list-style:none; line-height:160%; vertical-align: middle; float:right;} 
+
+/* 이미지 강제 왼쪽 정렬 */
+.float { float: left;}
+
+/* 이미지 강제 왼쪽 정렬해제 및 중앙정렬 */
+.floatnone { float: none; vertical-align: middle; margin-bottom:2px;}
+
+/* 링크 설정 */
+a:link{ color: #777; border-style: none; text-decoration : none; font-family: 'Nanum Gothic' !important;}
+a:visited{ color: #777; border-style: none; text-decoration : none; font-family: 'Nanum Gothic' !important;}
+a:active{ color: #d2868d; text-decoration:none;  font-family: 'Nanum Gothic' !important;}
+a:hover{ color: #d2868d; text-decoration:none; font-family: 'Nanum Gothic' !important;}
+
+
+/* png 익스6에서 보임 */
+.png24 {tmp:expression(setPng24(this));}
+
+/* 이미지롤오버 */
+a.rollover img {border-width:0px; display:inline;border:0; line-height:0; font-size:0;}
+a.rollover img.over { display:none;border:0; line-height:0; font-size:0; } 
+a.rollover:hover { border:0px;border:0; line-height:0; font-size:0;}
+a.rollover:hover img {display: none;border:0; line-height:0; font-size:0;}
+a.rollover:hover img.over {display: inline;border:0; line-height:0; font-size:0;}

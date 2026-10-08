@@ -1,0 +1,89 @@
+@charset utf-8;
+
+.defaultDiv { position: relative; float:left;}
+.w100 { width: 100%;}
+.responsiveBody {font-family: 'Nanum Gothic'; font-weight: 400; font-size: 13px; color: #666; line-height:1.6; margin: 0; padding: 0;}
+
+
+.uLeft {margin:0; padding:0; border:0;}
+.uRight {margin:0; padding:0; border:0;}
+/* li 왼쪽정렬 */
+.uLeft li{ margin:0px; padding:0px; list-style:none; line-height:160%; vertical-align: middle; float:left;} 
+/* li 오른쪽 정렬 */
+.uRight li{ margin:0px; padding:0px; list-style:none; line-height:160%; vertical-align: middle; float:right;} 
+
+.emphasis{font-weight:600; color:#333;}/*강조텍스트*/
+
+
+/*--------------------------로그인페이지----------------------------*/
+.smLogin{margin:0 auto; font-family:NanumGothic,나눔고딕,'Nanum Gothic';}
+.smBody{padding:0; margin:0;}
+
+
+
+/*--------------------------ID/PW찾기----------------------------*/
+.smFind_idpw{margin:0 auto; overflow:hidden; font-family:Nanum Gothic,나눔고딕,'Nanum Gothic';}
+
+
+
+/*--------------------------회원가입----------------------------*/
+.smJoin{margin:0 auto;font-family:Nanum Gothic,나눔고딕,'Nanum Gothic';}
+
+input[type=text],
+input[type=password],
+input[type=button] {
+  -webkit-border-radius:0;  /* 둥근모서리 */
+  -webkit-appearance:none;  /* 그림자 */
+}
+
+
+
+.joinType { margin: 80px 0;}
+.joinType > p { background: #eee; border-radius: 10px; padding: 15px;}
+.joinType > p > span { font-size: 15px; line-height: 1.6;}
+.joinType > p > span > i { display: block; font-style: normal;}
+.joinType > div { display: flex; align-items: stretch; justify-content: center; margin-top: 30px;}
+.joinType > div > div { flex: 1; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #ddd; padding: 40px; text-align: center; color: #212121; cursor: pointer;}
+.joinType > div > div:last-child { margin-left: 20px;}
+.joinType > div > div:nth-child(1):hover { background: #f6fdf9;}
+.joinType > div > div:nth-child(2):hover { background: #fcf8f7;}
+.joinType > div > div > div > p { }
+.joinType > div > div > div > strong { margin-top: 20px; display: block;}
+.joinType > div > div > div > strong > span {font-size: 20px; display: block;}
+.joinType > div > div > div > strong > span > i { font-style: normal;}
+.joinType > div > div > div > strong > span .color1 { color: #32b16c;}
+.joinType > div > div > div > strong > span .color2 { color: #ec6941;}
+.joinType > div > div > div > strong > i { margin-top: 8px; font-size: 14px; font-weight: normal; color: #999; display: block; font-style: normal;}
+
+.joinKid { clear: both;}  
+.joinKid > p { font-size: 15px;}
+.joinKid > p > span { display: block; line-height: 1.6;}
+.joinKid > div { margin: 10px 0; border: 1px solid #d2d2d2; background: #fff; padding: 15px; display: flex; align-items: center; justify-content: center;}
+.joinKid > div > div { flex: 1; margin-right: 20px;}
+.joinKid > div > div:last-child { margin-right: 0;}
+.joinKid > div > div > strong { font-size: 15px;}
+.joinKid > div > div:nth-child(2) > p {display: inline-flex; width: 100%;}
+.joinKid > div > div:nth-child(2) > p > select:nth-child(1) { flex: 1.5;}
+.joinKid > div > div:nth-child(2) > p > select:nth-child(2) { flex: 1;}
+.joinKid > div > div:nth-child(2) > p > select:nth-child(3) { flex: 1;}
+.joinKid > span { display: block; margin-bottom: 10px; font-size: 14px; color: #999;}
+
+.joinKid input[type="text"],
+.joinKid select { border: 1px solid #ddd; border-radius: 5px; height: 34px; width: 100%; box-sizing: border-box; padding: 0 5px;}
+	@media all and (max-width:600px){
+		.joinType { margin: 20px 0;}
+		.joinType > p > span { font-size: 14px;}
+		.joinType > p > span > i { margin-bottom: 8px;}
+		.joinType > p > span > i:last-child { margin-bottom: 0;}
+		.joinType > div > div { padding: 40px 10px;}
+		.joinType > div > div:last-child { margin-left:10px;}
+
+		.joinKid > p > span { line-height: 1.4; margin-bottom: 8px;}
+		.joinKid > p > span:last-child { margin-bottom: 0;}
+		.joinKid > div { display: block;}
+		.joinKid > div > div { margin: 0 20px 10px 20px;}
+		.joinKid > div > div:last-child { margin: 0 20px 0 20px;}
+		.joinKid > div > div > strong { font-size: 15px;}
+		.joinKid > span { display: block; margin-bottom: 10px; font-size: 14px; color: #999;}
+		.joinKid input[type="text"] { border: 1px solid #ddd; border-radius: 5px; height: 34px; width: 100%; box-sizing: border-box; padding: 0 5px;}
+	}

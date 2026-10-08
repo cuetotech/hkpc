@@ -1,0 +1,9 @@
+.pCategory_m{display:none;}
+
+.p_wrap {width:100%; position:relative; float:left; padding:50px 0;}
+.p_list {width:25%; position:relative; float:left;}
+.p_name {padding:10px 0; font-size:1.385em; font-weight:600;}
+.p_text {display:block; overflow:hidden; width:100%; height:0;}
+.p_btn {border-top:1px solid #d4d4d4; width:100%;}
+.p_btn img {padding:0;margin:0; }
+.p_btn_open img {padding:0; margin:0; }

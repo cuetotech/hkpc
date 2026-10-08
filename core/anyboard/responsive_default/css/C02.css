@@ -1,0 +1,73 @@
+/*카테고리분류*/
+.cateList{border-top:1px solid #a2c1e8; border-bottom:1px solid #a2c1e8;}
+
+
+/*게시판하단 선택삭제,선택이동,글쓰기,페이징카운트*/
+.selecDel{border:1px solid #a2c1e8; background: #a2c1e8;}
+.selecDel:hover{ background: #386195;}
+
+.selecMove{border:1px solid #a2c1e8; background: #a2c1e8;}
+.selecMove:hover{ background: #386195;}
+
+#pageCount_ON{background:#a2c1e8;}
+
+.writeBtn {background: #4a89dc;}
+.writeBtn:hover{background:#386195;}
+
+.searchBtn001 {background:#4a89dc;}
+/*리스트형*/
+.boardList{border-bottom:1px solid #a2c1e8;}
+	.boardList th{background:#4a89dc;}
+	.boardList td{border-bottom:1px solid #ececec;}
+	.boardList td.noticeTd{ background-color:#f9f9f9; border-bottom:1px solid #ececec; color:#666;}
+	.boardList td.noticeTd_left{ background-color:#f9f9f9; border-bottom:1px solid #ececec; color:#666;}
+	.boardList td a{color:#666; }
+	.boardList td a:hover{color:#333; }
+
+
+/*포토앨범*/
+.photoWrapper{border-top:3px solid #4a89dc; border-bottom:1px solid #a2c1e8;}
+
+.sm_photoSbj a:hover{color:#2c2c2c;}
+
+/*웹진형*/
+.webzineWrapper{border-top:3px solid #4a89dc; border-bottom:1px solid #a2c1e8;}
+.smWzwrap{border-bottom:1px solid #ededed;}
+.sm_webzineSbj a:hover{color:#333333;}
+
+/*뷰페이지*/
+.viewTable{border-bottom:3px solid #a2c1e8;}
+.viewTable th{background-color:#4a89dc; color:#fff; }
+.sbj_cate{color:#dcdcdc;}
+.viewTable td.writeInfo{background-color:#f9f9f9;  color:#666; border-bottom:1px solid #ececec; }
+.viewTable td.writeConWrap{background-color:#ffff; border-bottom:1px solid #ececec;  text-align: left;}
+
+.hy_addFile01 a{color:#666666;}/*첨부파일 다운받는 링크*/
+
+.comment_writeBtn{color:#fff; background: #a2c1e8;}
+.comment_writeBtn:hover{background:#386195;}
+
+.view_writeBtn{background: #4a89dc;}
+.view_writeBtn:hover{background:#386195;}
+
+.view_cancelBtn{ background: #a2c1e8;}
+.view_cancelBtn:hover{background:#386195;}
+
+/*글쓰기*/
+.writeBtn01{background: #4a89dc;}
+.cancelBtn01{ background: #a2c1e8;}
+
+.writeFormtable{border-top:3px solid #4a89dc;}
+.writeFormtable td{border-bottom:1px solid #ececec;}
+.writeFormtable th{ background-color:#f9f9f9; border-bottom:1px solid #ececec;}
+
+.boardCon{border:1px solid #ececec;}
+
+.add_listDel {background: #a2c1e8;}/*첨부되었을때 보여지는 삭제버튼*/
+.add_listCan {background: #a2c1e8;}/*첨부중에 보여지는 취소버튼*/
+
+
+
+.sm_checkBtn{ background:#a2c1e8; border:1px solid #a2c1e8;}
+.sm_checkBtn:hover{background:#386195;}
+.sm_cancelBtn:hover{border:1px solid #a2c1e8;}

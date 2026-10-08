@@ -1,0 +1,352 @@
+@charset utf-8;
+
+/* li 왼쪽정렬 */
+.uLeft li{ margin:0px; padding:0px; list-style:none; line-height:160%; vertical-align: middle; float:left;} 
+/* li 오른쪽 정렬 */
+.uRight li{ margin:0px; padding:0px; list-style:none; line-height:160%; vertical-align: middle; float:right;} 
+
+.float { float: left;}
+.right { float: right;}
+
+.sm_list{position:relative; float:left; width:100%; padding:0;}
+
+
+.defaultDiv { position: relative; float:left;}
+.w100 { width: 100%;}
+.responsiveBody {font-family: "Malgun Gothic",Nanum Gothic,dotum,tahoma,helvetica; font-weight: 400; font-size: 13px; color: #666; line-height:1.6; margin: 0; padding: 0;}
+
+.float_left { float: left;}
+.float_right { float: right;}
+
+
+/*사파리에서 인풋타입 모서리그림자해제*/
+textarea,
+input[type=text],
+input[type=button],
+input[type=password]{
+	-webkit-border-radius:0;  /* 둥근모서리 */
+	 -webkit-appearance:none;  /* 그림자 */
+}
+
+
+/*--------------------------리스트상단,하단 공통부분----------------------------*/
+
+/*게시판상단*/
+.smBoardWrap {width:100%; margin:0 auto; position:relative;}
+.smlist_topWrap{position:relative; float:left; width:100%; padding:10px 0;}
+
+.smlist_top{position:relative; float:left; width:100%; height:100%; padding:10px 0;}
+
+.important_img{width:100%; float:left; position:relative; text-align:left; margin-bottom:10px;}
+
+
+/*상단 왼쪽 타입선택 */
+.sm_topLeft {position:relative; float:left; width:40%;}
+.sm_topLeft .viewType001, .viewType002, .viewType003, .viewType001On, .viewType002On, .viewType003On {display: block; width: 30px; height: 30px; background:url('../images/C01/viwestyleicon.jpg');}
+	a.viewType001 { background-position: 0 0;}
+	a.viewType001:hover, .viewType001On { background-position: -30px 0;}
+	a.viewType002 { background-position: -60px 0;}
+	a.viewType002:hover, .viewType002On { background-position: -90px 0;}
+	a.viewType003 { background-position: -120px 0;}
+	a.viewType003:hover, .viewType003On { background-position: -150px 0;}
+
+
+/*상단 오른쪽 셀렉트박스, 입력폼, 검색버튼*/
+.sm_topRight {float: right; position:relative; width:60%; vertical-align:top;}
+
+.select001{padding:5px; height:34px; border:1px solid #dfdfdf; width:100%; color:#666; font-size:13px; }
+.searchInput001{background:#f1f1f1; padding:0; width:99%; height:32px; *display:inline; zoom:1;}
+.searchBtn001{width:100%; line-height:34px; height:100%; display:block; *display:inline; zoom:1; text-align:center; color:#fff; text-decoration:none; vertical-align: middle;}
+
+.float_left a.searchBtn001 {color:#fff;}
+
+/*상단 카테고리분류 탭*/
+.cateList{border-top:1px solid #b8b8b8; border-bottom:1px solid #b8b8b8; width:100%; float:left; position:relative; text-align:left; padding:10px 0;}
+.cateList span{margin:10px; color:#666; font-size:14px;}
+.cateList ul li{float:left; display:block; padding:10px; float:left;}
+.cateList a{color:#666; text-decoration:none; font-size:14px;}
+.cateList a:hover{text-decoration:underline;}
+
+
+.writeBtn {color:#fff;}
+
+
+/*--------------------------리스트타입 type1----------------------------*/
+/* 기본 구조 */
+.smListType1{margin:0 auto; width:100%; }
+
+.boardList th {font-size:13px; font-weight:normal;}
+.boardList td {font-size:13px; font-weight:normal;}
+
+/*제목옆 추출되는 사진첨부아이콘*/
+.addFile01{position:relative; display:inline; }
+.addFile01 .addfile_down01{position:absolute; float:right; display:none; left:-40px; top:25px; z-index:1; width:266px; font-size:13px;}
+.addFile01 .addfile_down01 .down_sjb{width:130px;float:left; margin-left:15px; overflow:hidden; overflow-style:marquee-block;}
+.addFile01 .addfile_down01 .down_btn{width:80px; float:right; margin-right:20px; text-align:right; font-size:13px;}
+.addFile01 .addfile_down01 .down_btn a{font-size:13px;}
+.addFile01 .addfile_down01 a{font-size:13px; color:#b2b2b2;} /*첨부파일 다운로드 앵커*/
+.addFile01 .addfile_down01 a:hover{font-size:13px; text-decoration:underline; color:#666; }
+.addFile01 .addfile_down01 .L02{ background:url('../images/bg_addfile_mid.png') repeat-y center top; width:266px; float:left; text-align:left;}
+
+/*제목옆 추출되는 파일첨부아이콘*/
+.diskIcon{vertical-align:middle; float:none;}
+
+.addFile02{position:relative; display:inline; }
+.addFile02 .addfile_down02{position:absolute; float:right; display:none; right:-50px; top:30px; z-index:1; width:266px; font-size:13px;}
+.addFile02 .addfile_down02 .down_sjb{width:130px;float:left; margin-left:15px; overflow:hidden; overflow-style:marquee-block;}
+.addFile02 .addfile_down02 .down_btn{width:80px; float:right; margin-right:20px; text-align:right; font-size:13px;}
+.addFile02 .addfile_down02 .down_btn a{font-size:13px;}
+.addFile02 .addfile_down02 a{font-size:13px; color:#b2b2b2;} /*첨부파일 다운로드 앵커*/
+.addFile02 .addfile_down02 a:hover{font-size:13px; text-decoration:underline; color:#666; }
+.addFile02 .addfile_down02 .L02{ background:url('../images/bg_addfile_mid.png') repeat-y center top; width:266px; float:left; text-align:left;}
+
+
+
+/*포토앨범*/
+.sm_photoSbj{position:relative; float:left; width:100%; height:40px; line-height:40px; vertical-align:middle; text-align:center; color:#666; font-size:13px; }
+.sm_photoSbj a{text-decoration:none; color:#666; font-size:13px; }
+.sm_photoSbj a:hover{font-weight:600; font-size:13px; }
+
+
+
+/*--------------------------게시글 뷰페이지----------------------------*/
+/* 기본 구조 */
+.smViewWrap{margin:0 auto; width:100%; margin:0; padding:0; border:0; font-size:100%; vertical-align:baseline;}
+.pointer {cursor:pointer;}
+
+/*게시글 뷰페이지*/
+.viewTable th{height:45px; line-height:140%; vertical-align:middle; text-align:left; text-indent:10px; font-weight:600; font-size:15px;}
+.viewTable td.writeInfo{ height:35px; line-height:35px; vertical-align:middle;text-indent:10px; font-size:12px;}
+.viewTable td.writeConWrap{ vertical-align:middle; color:#666; padding:10px;}
+
+span.sbj_cate{font-size:13px; margin-right:10px; color:#ffffff;}/*제목에 카테고리 나올시*/
+
+/*파일첨부 다운*/
+.hy_addFile01{position:relative; float:right; text-align:right; display:block; margin-bottom:5px; font-size:13px;}
+.hy_addFile01 a{text-decoration:none; font-size:13px;}
+.hy_addfile_down{position:absolute; float:right; display:none; right:0px; top:30px; z-index:1; width:266px; font-size:14px;}
+
+.down_sjb{width:130px; float:left; margin-left:15px; overflow:hidden; overflow-style:marquee-block; overflow:hidden; text-overflow: ellipsis; white-space:nowrap; font-size:11px;}
+.down_sjb img{margin-right:5px;}
+
+.down_btn{width:80px; float:right; margin-right:20px; text-align:right;}
+
+.hy_addfile_down a{font-size:11px; color:#b2b2b2;} /*첨부파일 다운로드 앵커*/
+.hy_addfile_down a:hover{font-size:11px; text-decoration:underline; color:#666;}
+
+.L02{ background:url('../images/bg_addfile_mid.png') repeat-y center top; width:266px; float:left; text-align:left;}
+
+
+/*글내용부분*/
+.sm_viewContent{font-size:14px; word-break:break-all; width: 100%; float: left; line-height:1.5;}
+.sm_viewContent ol li { list-style: decimal; float: none; line-height: 1.6;}
+.sm_viewContent ul li { list-style: disc; float: none; line-height: 1.6;}
+.sm_viewContent .imgBoxDecorationZ ul li { list-style: none;}
+
+
+/*sns보내지기부분*/
+.sm_viewBottom {display:block;height:40px; line-height:40px; vertical-align:middle; text-indent:10px;}
+.sm_viewBottom a{color:#666; text-decoration:none; font-size:12px;}
+.sm_viewBottom a:hover{text-decoration:underline;}
+
+.sm_sns { position: relative; float: left;}
+.sns_out{position:relative; display:none; left:0px; top:5px; width:200px; height:40px; z-index:1;}
+
+
+/*이게시물을.. 부분*/
+.thisnotice{position:relative; float:right;}
+
+.this_select{position:absolute; display:none; right:0px; top:-130px; width:68px;z-index:1; font-size:13px;}
+.this_select a{ font-size:14px;}
+
+.L01{background:url('../images/bg_tobe_middle.png') center top repeat-y; width:68px; float:left;}
+
+
+/*댓글,윗글,아랫글 글쓰기,답글,수정,삭제,목록라인*/
+.etcBtnline{position:relative; float:left; width:100%; height:80px; line-height:40px; vertical-align:middle; margin-top:10px; }
+
+.leftBtnline{position:relative; float:left; width:50%; height:40px; }
+.leftBtnline li{height:40px; line-height:40px; vertical-align:middle;margin-right:10px}
+.leftBtnline li:first-child{height:40px; line-height:40px; vertical-align:middle;margin-right:10px; margin-left:10px;}
+.leftBtnline li a{color:#666; text-decoration:none;}
+.rightBtnline{position:relative; float:left;  width:50%; height:40px;}
+
+.rightBtnline a.view_writeBtn, a.view_cancelBtn {color:#fff;}
+
+.view_writeBtn{height:30px; line-height:30px; width:19%; display:inline-block; *display:inline; zoom:1; color:#ffffff; text-decoration:none; font-weight:600; text-align:center;float:right; font-size:12px; margin:0.5%;}
+.view_cancelBtn{height:30px; line-height:30px; width:19%; display:inline-block; *display:inline; zoom:1; color:#fff; text-decoration:none; font-weight:600; text-align:center;float:right; font-size:12px; margin:0.5%;}
+
+
+
+/*댓글창부분*/
+.viewComment{position:relative; float:left; width:98%; padding:1%; background-color:#f6f6f6; border: 1px solid #e8e8e8}/*댓글 감싼부분*/
+.viewComment ul li{position:relative; float:left; width:100%;}
+
+.replyID{position:relative; width:40%; height:30px; float:left; text-align:left; font-weight:600;}/*댓글아이디부분*/
+
+.replyBtn{width:60%; height:30px;float:left; text-align:right; font-size:13px;}/*답글/수정/삭제부분*/
+.replyBtn a{font-size:10px;}
+
+.replyCon{width:100%; word-break:break-all; line-height:130%; text-align:left; font-size:13px; margin-bottom:20px;}
+
+.comment_Date{.display:none; padding-left: 10px; color: #aaa; font-size: 12px}/*댓글아이디 옆 날짜(모바일에서는 숨김)*/
+.commentdotLine{width:100%; height:1px; background:url('../images/dotline.png') repeat-x ; margin-top:15px; margin-bottom:15px;}/*댓글사이 라인*/		
+
+.viewComment a{color:#666; text-decoration:none; font-size:14px; }
+.viewComment a:hover{ text-decoration:underline;}
+
+.commentInput001{height:30px; border:1px solid #ececec; padding-left:10px;}
+.commentInput002{width:100%; height:100px; border:1px solid #ececec;}
+.commentInput003{width:98%; height:100px; border:1px solid #ececec;}
+
+.commentWrite{width:100%; height:150px; color:#666; font-size:14px; text-align:left;}
+.commentWrite ul li{position:relative; float:left;}
+
+.reply_comment01{position:relative; float:left; width:100%; margin-top:10px; display:none; font-size:14px; color:#666; text-align:left;}/*댓글의 답글추출*/
+.reply_comment01 ul li{margin-bottom:10px;}
+.reply_comment01 ul li.reply_idArea{width:100%; margin-bottom:10px;}/*답글 아이디추출*/
+.reply_comment01 ul li.reply_textArea{width:70%; margin-right:1%;}/*답글텍스트필드*/
+.reply_comment01 ul li.reply_btnArea{width:29%; float:right; }
+
+.comment_writeBtn{position:relative; height:105px; line-height: 105px; cursor:pointer; border:none; vertical-align:middle; width:100%; *display:inline; zoom:1;  display:inline-block; text-decoration:none; font-weight:600; text-align:center; float:right;}/*등록버튼*/
+
+.reply_modify01{margin-top:10px;  display:none; font-size:14px; color:#666; text-align:left;}	
+.reply_modify01 ul li{margin-bottom:10px;}
+.reply_modify01 ul li.reply_idArea{width:100%; margin-bottom:10px;}/*답글 아이디추출*/
+.reply_modify01 ul li.reply_textArea{width:70%; margin-right:1%;}/*답글텍스트필드*/
+.reply_modify01 ul li.reply_btnArea{width:29%; float:right;}
+
+.del_password {  width:200px; height:120px; position:absolute; right:0; top:10; font-size:13px; border:1px solid #d4d4d4; background:#fff; padding:10px; border-radius:10px; box-shadow: 1px 1px 5px #aaa; z-index:1;}
+.del_p01 {padding:5px 0;}
+.del_p02 {text-align:center; position:relative; padding:5px 0;}
+
+.confirm_btn {cursor:pointer; background:#8a8a8a; color:#fff; display:inline; padding:3px 6px; margin-right:5px;}
+.cancel_btn {cursor:pointer; background:#aaa; color:#fff; display:inline; padding:3px 6px; margin-right:5px;}
+a.mdPageText{ color:#333333;}
+a.mdPageText:hover{ text-decoration:underline;}
+
+
+/*--------------------------게시글쓰기----------------------------*/
+/* 기본구조 */
+.smWriteWrap{margin:0 auto; width:100%; }
+
+
+/*글쓰기페이지 버튼*/
+.sm_btnWrap{text-align:center; margin:0 auto;}
+
+.writeBtn01{height:20px; line-height:20px; width:70px; display:inline-block; *display:inline; zoom:1; color:#fff; text-decoration:none; font-weight:600; padding:10px;}
+.cancelBtn01{height:20px; line-height:20px; width:70px; display:inline-block; *display:inline; zoom:1; color:#fff; text-decoration:none; font-weight:600; padding:10px;}
+
+.right_Bottom a.writeBtn {color:#ffffff;}
+
+/*글쓰기*/
+.sm_write{position:relative; float:left; width:100%; }	
+.writeTop{position:relative; float:left; width:100%; vertical-align:middle; font-size:13px; color:#666; z-index:1;}	
+
+.smboard_write{position:relative; float:left; width:100%; margin:20px 0;  }
+.writeFormtable td{padding:1%; font-size:15px; color:#666;}
+.writeFormtable th{ width:20%; height:40px; line-height:40px; vertical-align:middle; font-weight:600; color:#666; font-size:15px; line-height:120%;}
+.boardCon{width:98%; min-height:400px; padding:1%; background-color:#ffffff;}
+input.sm_input01{width:100%; height:30px; border:1px solid #e0e0e0; text-indent:10px;}
+input.sm_password{position:relative; float:left; width:60%; height:30px; border:1px solid #e0e0e0; text-indent:10px;}
+.sm_input{width:100%; height:30px; border:1px solid #e0e0e0; text-indent:10px;}
+
+.addWrap{position:relative; float:left; width:98%; min-height:35px;line-height:35px; vertical-align:middle; border:1px solid #cccccc; margin-top:20px; background-color:#f5f5f5; padding:1%;}
+.addBtn{height:34px; line-height:34px; vertical-align:middle; text-align:center; width:80px; color:#fff; display:block; text-decoration:none; font-size:14px; font-weight:600; }
+.alldelBtn{height:34px; line-height:34px; vertical-align:middle; text-align:center; width:80px; color:#fff; display:block; text-decoration:none; font-size:14px; font-weight:600; margin-right:5px;}
+.realfileBtn{width:80px; height:32px; cursor:pointer; position:absolute; right:0.5%; z-index:1; opacity:0;}/*input type "file"*/
+
+.file_line{width:100%; height:35px; line-height:35px; vertical-align:middle;}
+.file_number {font-size:15px; font-weight:600; display:inline-block; *display:inline; zoom:1;}
+.file_add_btn {display:inline-block; *display:inline; zoom:1; float:right; cursor:pointer;margin-left:5px;}
+.file_del_btn {display:inline-block; *display:inline; zoom:1; float:right; cursor:pointer; }
+
+
+/*첨부리스트*/
+
+/*첨부파일(이미지첨부)*/
+.sm_FileListImage{position:relative; float: left; width:99.9%;  margin-top:10px;}
+.sm_FileListImage .baseWrap{width: 100%; margin-bottom: 10px; padding:15px 0; border: 1px solid #a9a9a9; background-color: #fff; position: relative; float: left;}
+.sm_FileImageBase{position:relative; float:left; width:150px; height:150px; margin:0.3%;}
+.sm_FileImageBase img {width:100%; height:100%; margin:0; padding:0; display:block;}
+
+/*첨부파일(파일첨부)*/
+.sm_FileBase{width:100%; border: 1px solid #a9a9a9; background-color: #fff; position:relative; float:left; padding:10px 0; margin-bottom:10px;}
+.sm_FileBase ul li{width:100%; height:32px; float:left; vertical-align:middle; text-align:center; line-height:32px; margin:2px 0;}
+/*.sm_FileBase ul li p:first-child{position:relative; float:left; width:20%; height:30px; background-color:#eef0f3;}
+.sm_FileBase ul li p:nth-child(2){position:relative; float:left; width:70%; height:30px; background-color:#eef0f3;}
+.sm_FileBase ul li p:nth-child(3){position:relative; float:left; width:10%; height:30px; text-align:center;}*/
+
+.span_p_left {padding-left:10px;}
+
+/*첨부되었을때 보여지는 삭제,취소버튼*/
+.add_listDel{height:20px; line-height:20px; width:100%;display:inline-block; *display:inline; zoom:1; color:#fff; text-decoration:none; font-weight:600; padding:5px 0;}
+.add_listCan{height:20px; line-height:20px; width:100%;display:inline-block; *display:inline; zoom:1; color:#fff; text-decoration:none; font-weight:600; padding:5px 0;}
+
+/*이미지첨부시 -본문에삽입- 선택영역*/
+.imgTitArea{position:absolute; z-index:20;top:0px;width:100%; height:20px; line-height:20px; vertical-align:middle;background:#2a2a2a; text-align:left;color:#fff; font-size:13px; }
+.delArea{width:150px; height:40px; background-color:#000; position:absolute; bottom:0; left:0; text-align:center; cursor:pointer; margin:0.5%;}
+.delAeaText{color:#fff; font-weight:600; font-size:12px;}
+.delBtn {position:absolute; right:3px; top:23px; cursor:pointer ;}
+
+/*이미지첨부시 -로딩중- 영역*/
+.upArea{ width:150px; height:40px; background-color:#000; position:absolute; bottom:0; left:0; text-align:center; margin:0.5%;}
+.upAeaCount{color:#fff; font-weight:600; font-size:12px;}
+
+/*모바일에서보여지는 파일첨부란*/
+.sm_FileBase_mo{width:100%; border: 1px solid #a9a9a9; background-color: #fff; position:relative; float:left; padding:10px 0; margin-bottom:10px;}
+
+.file_box {width:100%; position:relative; float:left; margin:2px 0;}
+.file_box span.txt{position:absolute; width:100%; top:0; left:0; font-size:11px;}
+.file_text {float:left; width:80% display:inline-block; *display:inline; zoom:1; height:26px; background-color:#f6f6f6; border:1px solid #eee; color:#777; }
+.file_wrap {overflow:hidden; display:inline-block; *display:inline; zoom:1; width:20%; height:30px;  background:url('../images/add_file_mo.gif') center center no-repeat;  position: absolute; top:0; right:0;}
+.file_add {filter:alpha(opacity:0); opacity:0; width:100%; height:30px; cursor:pointer;}
+
+/*일반파일 첨부 로딩시 보여질 부분*/
+.loadingPlace{position:relative; float:left; width:150px; height:150px; margin:0.3%; background:#e6e6e6 url('../images/loading.GIF') center 40% no-repeat;}
+
+.file_load { background:#cbcbcb;}
+.load_subject {width:90%; position:relative; float:left; text-align:left;}
+
+.file_up {width:100%; height:32px;}
+
+.file_subject {width:90%; position:relative; float:left; text-align:left;}
+.file_delete {width:10%; text-align:center; position:relative; float:left; cursor:pointer; }
+
+.file_cancel {width:10%; text-align:center; position:relative; float:left; cursor:pointer; }
+
+
+/*비밀번호*/
+.sm_wrap{position:relative; margin:0 auto; width:280px; border:1px solid #d2d2d2; padding:20px; background:#f9f9f9;}
+.smtextWrap{font-size:15px; margin-bottom:10px;}
+.btnWrap{margin-top:10px;}
+.sm_checkBtn{width:50px; display:inline-block; height:30px; line-height:30px; vertical-align:middle; color:#ffffff;}
+.sm_cancelBtn{width:50px; display:inline-block; height:30px; line-height:30px; vertical-align:middle; color:#666666; background:#ffffff; border:1px solid #d2d2d2;}
+
+
+.reportWrap .reportLabel { display: inline-flex; align-items: center; white-space: nowrap; font-size: 13px; cursor: pointer;}
+.reportWrap .reportLabel input[type="checkbox"],
+.reportWrap .reportLabel input[type="radio"] { display: none;}
+.reportWrap .reportLabel i {display: inline-block; vertical-align: middle; transition-duration: .3s; margin: 2px 5px 0 0 ;}
+.reportWrap .reportLabel i.type1 { width: 17px; height: 17px; background: url('../images/reportCheck.png') center no-repeat; background-size: contain;}
+.reportWrap .reportLabel i.type2 { width: 16px; height: 16px; background: url('../images/reportRadio.png') center no-repeat; background-size: contain;}
+.reportWrap .reportLabel input[type="radio"]:checked + i.type1 { background: url('../images/reportCheck_on.png') center no-repeat;}
+.reportWrap .reportLabel input[type="radio"]:checked + i.type2 { background: url('../images/reportRadio_on.png') center no-repeat;}
+.reportWrap .reportLabel input[type="radio"] + i + span { color: #666;}
+.reportWrap .reportLabel input[type="radio"] + i + span { color: #666;}
+.reportWrap .reportLabel input[type="radio"]:checked + i + span { color: #000; font-weight: 600;}
+.reportWrap .reportLabel input[type="radio"]:checked + i + span { color: #000; font-weight: 600;}
+
+.reportWrap {position: fixed; left: 0; top: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.3); z-index: 999;}
+.reportWrap > div { background: #fff; border: 1px solid #666; border-radius: 20px; padding: 20px;}
+.reportWrap > div > p { display: flex; align-items: center; border-bottom: 1px solid #666; padding-bottom: 5px; margin-bottom: 15px;}
+.reportWrap > div > p > span:nth-child(1) { font-size: 15px; font-weight: 600; flex-grow: 1 ;}
+.reportWrap > div > p > span:nth-child(2) { display: inline-flex; align-items: center; cursor: pointer;}
+.reportWrap > div > span { display: block; text-align: left; font-size: 13px; margin-bottom: 10px;}
+.reportWrap > div > i { display: block; text-align: right; margin-bottom: 10px; color: #999; font-size: 11px; font-style: normal;}
+.reportWrap > div > i > span { color: #f39700;}
+.reportWrap .type { margin-bottom: 10px; text-align: left;}
+.reportWrap .cate { margin-bottom: 10px;}
+.reportWrap .cate > label { display: flex; width: 220px; box-sizing: border-box; padding: 5px 10px 7px 10px; border: 1px solid #d1d1d1; border-radius: 3px; margin-bottom: 3px;}
+.reportWrap textarea { width: 100%; outline: none; border: 1px solid #d2d2d2; border-radius: 3px; height: 60px; padding: 5px; box-sizing: border-box; resize: none;}
+.reportWrap .reportBtn .reportBtn1 {box-shadow:inset 0px 1px 0px 0px #f9eca0; background:linear-gradient(to bottom, #f0c911 5%, #f2ab1e 100%); background-color:#f0c911; border-radius:3px; border:1px solid #e65f44; cursor:pointer; color:#c92200; font-size:13px; font-weight:bold; padding:6px 24px; text-decoration:none; text-shadow:0px 1px 0px #ded17c; text-align: center;}

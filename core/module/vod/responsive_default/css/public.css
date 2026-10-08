@@ -1,0 +1,359 @@
+@charset "utf-8";
+/* CSS Document */
+/* 기본 CSS */
+.hy_vodBoard {font-size: 13px; color: #666; line-height: 1.6; font-weight:normal;  font-family: 'Nanum Gothic' !important;}
+.hy_vodBoard h3 {margin:0;}
+.hy_vodBoard p { margin:0; padding:0;}
+.hy_vodBoard span {margin:0; padding:0;}
+.hy_vodBoard ul li {list-style:none; margin:0; padding:0;}
+.hy_vodBoard img {padding:0; margin:0;}
+.hy_vodBoard .floatnone { float: none; vertical-align: middle; margin-bottom:2px;}
+.overflow {overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
+.pointer {cursor:pointer;}
+.va_top{vertical-align:top;}
+.apartLine {width:100%; padding:5px 0; border-bottom:1px dashed #ccc;}
+
+.hy_vodBoard {position:relative; width:100%; margin:0 auto;}
+
+.file_list li {list-style:none;}
+
+/* 영상 상단 노출 */
+.vodArea {position:relative; width:100%; background:#fff; border:1px solid #dfdfdf; margin:0 auto; }
+
+.vodPlay {position:relative; width:100%; margin:0 auto;}
+
+.vodContent {position:relative; width:100%;}
+
+.vodSubject {padding:20px 20px 0 20px; line-height:1;}
+
+.conInfo {position:relative;}
+.conInfo a{color:#666; font-size:12px; font-weight:bold; text-decoration:none;}
+.conInfo a:hover {font-size:12px; color:#434343; text-decoration:underline;}
+
+.d_inline-block {display:inline-block; vertical-align:top; *display:inline; zoom:1;}
+.emStyle {font-style:normal; padding:0 10px; vertical-align:middle;}
+.hits {margin:0 7px 0 0;}
+
+.vodText {position:relative; width:100%; border:1px solid #dfdfdf; margin:20px 0;}
+.vodText .vodtextArea {padding:20px; font-size:12px; text-align:left;}
+
+.hyCmd_count{ font-size:16px; font-weight:600; color:#666666;} /* 댓글 수 css */
+
+/* 리스트영역 */
+.boardList td, .boardList th {font-size:13px;}
+.boardList a {font-size:13px;}
+.hy_vod_listWrap {margin:0 auto; width:100%;}
+.float_left { float: left;}
+.float_right { float: right;}
+
+/* 게시판상단 */
+.hylist_topWrap{position:relative; float:left; width:100%; }
+.hylist_top{position:relative; float:left; width:100%; height:100%;}
+.hy_topLeft {position:relative; float:left; width:40%; margin-top:10px; }
+.hy_topLeft .viewType001, .viewType002, .viewType003, .viewType001On, .viewType002On, .viewType003On {display: block; width: 30px; height: 30px; background:url('../images/viwestyleicon.jpg');}
+	a.viewType001 { background-position: 0 0;}
+	a.viewType001:hover, .viewType001On { background-position: -30px 0;}
+	a.viewType002 { background-position: -60px 0;}
+	a.viewType002:hover, .viewType002On { background-position: -90px 0;}
+	a.viewType003 { background-position: -120px 0;}
+	a.viewType003:hover, .viewType003On { background-position: -150px 0;}
+.hy_topRight {float: right; width:60%;  margin-top:10px;}
+
+
+/*상단 셀렉트박스, 입력폼, 검색버튼*/		
+.select001{padding:5px; height:34px; border:1px solid #dfdfdf; width:100%; color:#666; font-size:13px;}
+.searchInput001{background:#f1f1f1; width:100%; padding:0; width:99%; height:32px; padding-left:1%; border:1px solid #dfdfdf;}
+.searchBtn001{width:100%; line-height:34px; height:100%; display:block; text-align:center; color:#fff; text-decoration:none; vertical-align: middle;}
+.comment_top {width:100%; position:relative; padding-top:10px; margin-top:20px; padding-bottom:10px;}
+
+
+/*게시판하단*/
+.pagenavigation {display:block; margin:0; padding:0; text-align:center; padding:15px 0; position:relative; width: 100%; float:left;} 
+.pageCount_ON {width:23px; height:23px; line-height:23px; vertical-align:middle; display:inline-block; *display:inline; zoom:1; color:#fff; text-decoration:none; font-size:13px; text-align:center;}
+.pageCount{width:23px; height:23px; line-height:23px; vertical-align:middle; display:inline-block; *display:inline; zoom:1; color:#666; text-decoration:none; font-size:13px; margin-left:3px; text-align:center;}
+
+
+.hyUl {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+.videoArea {
+	width: 100%;
+	position: relative;
+}
+.videoCon {
+	padding-right: 17px;
+	height: 100%;
+}
+.videoPlay {
+	height: 100%;
+	background: black;
+	padding: 0px;
+	margin: 0 auto;
+	width: 100%;
+}
+.listSide {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 17px;
+	height: 100%;
+	background: #323232;
+}
+.playListWrap a {
+	text-decoration: none;
+	color: #000;
+}
+.sideOpen {
+	height: 95%;
+	position: absolute;
+	top: 45%;
+	left: 3px;
+	text-decoration: none;
+	color: #000;
+}
+.sideClose {
+	height: 100%;
+	position: absolute;
+	top: 45%;
+	left: 3px;
+	text-decoration: none;
+	color: #000;
+}
+.arrowStyle {
+	color: #fff;
+	font-size: 14px;
+}
+.playListWrap {
+	width: 400px;
+	height: 100%;
+	position: absolute;
+	right: 0;
+	top: 0;
+	background: #fff;
+	border: 1px solid #dfdfdf;
+	border-top:none;
+	border-right:none;
+	overflow: auto;
+}
+.palyList {
+	height: 100%;
+
+}
+.vodCaption {
+	width: 250px;
+	font-size: 13px;
+	height: 20px;
+	line-height: 20px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: block;
+	margin: 0;
+	padding: 0;
+	vertical-align: bottom;
+}
+.vodCaptionPlay {
+	width: 250px;
+	font-size: 13px;
+	height: 20px;
+	line-height: 20px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: block;
+	margin: 0;
+	padding: 0;
+	vertical-align: bottom;
+	font-weight: bold;
+}
+.vodDate {
+	width: 250px;
+	font-size: 13px;
+	height: 20px;
+	line-height: 20px;
+	vertical-align: middle;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: block;
+}
+.vodCaptionNone {
+	width: 295px;
+	font-size: 13px;
+	height: 15px;
+	line-height: 15px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: inline-block;
+	*display:inline; zoom:1;
+	margin: 0;
+	padding: 0;
+	background: url('listbullet.png') left center no-repeat;
+	padding-left: 10px;
+}
+.vodCaptionOn {
+	width: 295px;
+	font-size: 13px;
+	height: 15px;
+	line-height: 15px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: inline-block;
+	*display:inline; zoom:1;
+	margin: 0;
+	padding: 0;
+	background: url('listbullet.png') left center no-repeat;
+	padding-left: 10px;
+	font-weight:bold;
+}
+
+.vodDateNone {
+	width: 80px;
+	font-size: 13px;
+	height: 15px;
+	line-height: 15px;
+	vertical-align: top;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: inline-block;
+	*display:inline; zoom:1;
+}
+.vodCaption a:hover, .vodCaptionNone a:hover {
+	color: #777;
+}
+.listTitle {
+	font-size: 16px;
+	font-weight: 600;
+	text-align: center;
+	width: 100%;
+	border-bottom: 1px solid #dfdfdf;
+	line-height: 50px;
+	height: 50px;
+	padding: 0;
+	margin: 0;
+}
+.listTitle img {
+	vertical-align: middle;
+	margin-bottom: 2px;
+	padding-right: 5px;
+}
+.videoOutput {
+	padding-right: 400px;
+}
+.listOff {
+	width: 100%;
+	float: left;
+	padding: 5px 0;
+}
+.listOn {
+	width: 100%;
+	float: left;
+	padding: 6px 0;
+}
+.listThumb {
+	position: relative;
+	width: 120px;
+	float: left;
+	border: 1px solid #dfdfdf;
+	overflow: hidden;
+}
+.mask {
+	position: absolute;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	border: 1px solid #000;
+	opacity: .05;
+	filter: alpha(opacity=5)
+}
+.listOn .mask {
+	border: 0;
+	background-color: #1e5c8c;
+	background: url('../images/mask.png') center center no-repeat rgba(30,92,140,.75);
+	opacity: 1;
+	filter: alpha(opacity=100);
+}
+.listOn .mask:after {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	content: ""
+}
+.listThumb img {
+	vertical-align: middle;
+	width: 100%;
+}
+.listVodPaging {
+	float: left;
+	text-align: center;
+	width: 100%;
+	height: 35px;
+	line-height: 35px;
+}
+.listPrev {
+	cursor: pointer;
+}
+.listPrev img {
+	vertical-align: middle;
+	margin-bottom: 2px;
+}
+.listNext {
+	cursor: pointer;
+}
+.listNext img {
+	vertical-align: middle;
+	margin-bottom: 2px;
+}
+.listPageOn {
+	padding: 0 5px;
+	cursor: pointer;
+	background: #aaa;
+	color: #fff;
+}
+.listPageOff {
+	padding: 0 5px;
+	cursor: pointer;
+}
+.vodIconWrap {
+	width: 250px;
+}
+.videoIcon {
+	font-size: 12px;
+	width: 30px;
+	height: 20px;
+	line-height: 22px;
+	text-align: center;
+	display: inline-block;
+	*display:inline; zoom:1;
+	border: 1px solid #dfdfdf;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	margin-right: 1px;
+	cursor:pointer;
+}
+.videoIcon img {
+	vertical-align: middle;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 2px;
+}
+.ulList {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	float: left;
+	padding-left: 10px;
+}
+.mt15 {
+	margin-top: 15px;
+}
+.mt25 {
+	margin-top: 25px;
+}

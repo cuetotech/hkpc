@@ -1,0 +1,25 @@
+.defaultDiv { position: relative; float:left;}
+.w100 { width: 100%;}
+.responsiveBody {font-family: 'Nanum Gothic'; font-weight: 400; font-size: 13px; color: #666; line-height:1.6; margin: 0; padding: 0;}
+
+
+/*  섬기는사람들리스트 공통 */
+.hy_people {font-size: 13px; color: #666; line-height: 1.6; margin: 0; padding: 0;overflow-x:hidden; font-weight:normal;  font-family: 'Nanum Gothic' !important;}
+.hy_people p { margin:0; padding:0;}
+.hy_people .floatnone { float: none; vertical-align: middle; margin-bottom:8px;}
+.hy_people	ul li {list-style:none;}
+
+.hy_people {width:100%; position:relative; float:left;} 
+
+.categoryBox {width:100%; position:relative; text-align:center; margin:0 auto; padding:15px 0; border-bottom:1px solid #d2d2d2; float:left;}
+
+.categoryBox p{ position: relative; display:inline; text-align:center; font-size:0.846em; padding:0 10px;}
+.categoryBox a{ position: relative; display:inline; text-align:center; font-size:1.077em; color:#646464; font-weight:bold; text-decoration:none;}
+.categoryBox a:hover {text-decoration:underline;}
+
+.hy_peopleWrap {position:relative; width:100%; float:left; padding-top:50px;}
+
+.cateTitle {width:100%; font-weight:bold; color:#565656; font-size:1.077em; text-align:left; position:relative; float:left;}
+
+.listStyle { color: #777; padding-left: 40px; padding-bottom:10px;}
+

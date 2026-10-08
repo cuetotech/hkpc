@@ -1,0 +1,6 @@
+@font-face {
+  font-family: 'Jeju Hallasan';
+  src: url('font009/JejuHallasan-Regular.eot');
+  src: url('font009/JejuHallasan-Regular.eot') format('embedded-opentype'),
+       url('font009/JejuHallasan-Regular.woff') format('woff');
+}

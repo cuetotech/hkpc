@@ -1,0 +1,6 @@
+@font-face {
+  font-family: Hamchorom Dotum;
+  src: url('font011/HANDotum.eot');
+  src: url('font011/HANDotum.eot') format('embedded-opentype'),
+       url('font011/HANDotum.woff') format('woff');
+}

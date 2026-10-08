@@ -1,0 +1,6 @@
+@font-face {
+  font-family: 'Jeju Myeongjo';
+  src: url('font010/JejuMyeongjo-Regular.eot');
+  src: url('font010/JejuMyeongjo-Regular.eot') format('embedded-opentype'),
+       url('font010/JejuMyeongjo-Regular.woff') format('woff');
+}

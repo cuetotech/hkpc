@@ -1,0 +1,7 @@
+
+@font-face {
+  font-family: 'Nanum Gothic Coding';
+  src: url('font005/NanumGothicCoding-Regular.eot');
+  src: url('font005/NanumGothicCoding-Regular.eot') format('embedded-opentype'),
+       url('font005/NanumGothicCoding-Regular.woff') format('woff');
+}

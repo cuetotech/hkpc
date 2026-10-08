@@ -1,0 +1,27 @@
+@charset "utf-8";
+
+/* 2013-01-02 보기페이지 이미지 테두리 */
+.AB_borderType000 {border: 2px solid #d2d2d2; background-color: #fff; padding: 1px;}
+.AB_borderType000 div img { vertical-align:bottom;}
+
+.AB_borderType001 {border: 1px solid #e4e4e4; background-color: #fff; padding: 5px;}
+.AB_borderType001 div img { vertical-align:bottom;}
+
+.AB_borderType002 div img { vertical-align:bottom;}
+
+.AB_borderType004 div img { vertical-align:bottom;}
+.AB_borderType004 .AB_borderType004T { position:absolute; left: 0; top: 0; width: 100%; height: 5px; background:url('../images/imgBox/border_type004_1.png') repeat-x;}
+.AB_borderType004 .AB_borderType004L { position:absolute; left: 0; top: 0; width: 6px; height: 100%; background:url('../images/imgBox/border_type004_2.png') repeat-y;}
+.AB_borderType004 .AB_borderType004R { position:absolute; right: 0; top: 0; width: 5px; height: 100%; background:url('../images/imgBox/border_type004_3.png') repeat-y;}
+.AB_borderType004 .AB_borderType004B { position:absolute; left: 0; bottom: 0; width: 100%; height: 5px; background:url('../images/imgBox/border_type004_4.png') repeat-x;}
+
+.AB_borderType005 {border: 1px dotted #b2b2b2; background-color: #fff; padding: 3px;}
+.AB_borderType005 div img { vertical-align:bottom;}
+
+
+.imgBoxDecorationZ td img { float: left;}
+.imgBoxDecorationZ ul li { list-style: none;}
+
+.imgBoxDecorationZ table, td, th{ border:none; }
+.imgBoxDecorationZ ul, .imgBoxDecorationZ li { margin:0; padding:0;}
+

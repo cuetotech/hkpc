@@ -1,0 +1,6 @@
+@font-face {
+  font-family: 'Hanna';
+  src: url('font007/BM-HANNA.eot');
+  src: url('font007/BM-HANNA.eot') format('embedded-opentype'),
+       url('font007/BM-HANNA.woff') format('woff');
+}

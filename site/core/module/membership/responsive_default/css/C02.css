@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* Login */
+.login_btn{background:#386195;}
+
+
+/* ID/PW찾기*/
+.findId ul li:first-child{border-bottom:3px solid #386195;}
+
+.findPw ul li:first-child{border-bottom:3px solid #386195;}
+
+.sm_checkBtn{background-color:#386195;}
+
+
+/*회원가입단계 상단*/
+.step ul li.stepOn{background:#386195; border:1px solid #386195;}
+.stepMobile ul li.stepOnMobile {background:#386195; border:1px solid #386195;}
+
+
+/*버튼*/
+.checkBtn{background:#386195;}
+.checkBtn03{background:#386195;}
+.localBtn{background:#386195;}
+
+.cancelBtn{background:#b9b9b9;}
+.foreignerBtn{background:#b9b9b9;}

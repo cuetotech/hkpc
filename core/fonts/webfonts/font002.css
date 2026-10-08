@@ -1,0 +1,11 @@
+
+
+@font-face {
+  font-family: 'Nanum Myeongjo';
+  font-style: normal;
+  font-weight: 400;
+  src: url('font002/NanumMyeongjo-Regular.eot');
+  src: url('font002/NanumMyeongjo-Regular.eot') format('embedded-opentype'),
+       url('font002/NanumMyeongjo-Regular.woff') format('woff');
+}
+
