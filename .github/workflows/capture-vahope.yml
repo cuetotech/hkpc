@@ -1,0 +1,132 @@
+name: Capture legacy vahope website
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/capture-vahope.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: legacy-vahope-capture
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check public website connectivity
+        shell: bash
+        run: |
+          mkdir -p capture/site
+          python3 - <<'PY'
+          import json
+          import urllib.error
+          import urllib.request
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          out = Path('capture')
+          results = []
+          origin = None
+          for candidate in ('https://vahope.net', 'https://www.vahope.net', 'http://vahope.net', 'http://www.vahope.net'):
+              url = candidate + '/main/main.html'
+              try:
+                  request = urllib.request.Request(url, headers={'User-Agent': 'HKPC-Website-Preservation/1.0'})
+                  with urllib.request.urlopen(request, timeout=15) as response:
+                      body = response.read(4096)
+                      content_type = response.headers.get('Content-Type', '')
+                      results.append({'url': url, 'status': response.status, 'final_url': response.url, 'content_type': content_type, 'sample_bytes': len(body)})
+                      if response.status == 200 and 'html' in content_type.lower() and body:
+                          origin = candidate
+                          break
+              except Exception as exc:
+                  results.append({'url': url, 'error': str(exc)})
+          report = {'captured_at_utc': datetime.now(timezone.utc).isoformat(), 'origin': origin, 'probes': results, 'scope': 'Unauthenticated public content only; this is not a complete hosting backup.'}
+          (out / 'connectivity.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
+          print(json.dumps(report, indent=2))
+          if origin:
+              paths = ('/', '/main/main.html', '/main/sub.html?pageCode=1', '/main/sub.html?pageCode=3', '/main/sub.html?pageCode=15')
+              (out / 'seeds.txt').write_text(''.join(origin + path + '\n' for path in paths), encoding='utf-8')
+          PY
+      - name: Capture reachable public pages and same-site assets
+        shell: bash
+        run: |
+          if [ ! -f capture/seeds.txt ]; then
+            printf 'No accessible HTML origin. See connectivity.json.\n' > capture/NOT-CAPTURED.txt
+            exit 0
+          fi
+          set +e
+          timeout --signal=TERM --kill-after=10s 420s wget \
+            --recursive --level=12 --page-requisites \
+            --convert-links --backup-converted --adjust-extension \
+            --span-hosts --domains=vahope.net,www.vahope.net \
+            --wait=1 --random-wait --limit-rate=512k --quota=150m \
+            --timeout=20 --tries=2 --max-redirect=10 \
+            --user-agent='HKPC-Website-Preservation/1.0' \
+            --reject-regex='(^|[/?&=])(logout|login|register|signup|write|delete|modify)([/?&=]|$)' \
+            --directory-prefix=capture/site \
+            --output-file=capture/wget.log \
+            --input-file=capture/seeds.txt
+          result=$?
+          set -e
+          printf '%s\n' "$result" > capture/wget-exit-code.txt
+          printf 'Crawler exit code: %s. Completeness requires review.\n' "$result"
+          tail -n 30 capture/wget.log || true
+      - name: Inventory capture and unresolved external references
+        if: always()
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import os
+          import re
+          from pathlib import Path
+          from urllib.parse import urlsplit
+
+          root = Path('capture')
+          root.mkdir(exist_ok=True)
+          files = []
+          references = set()
+          for path in sorted((root / 'site').rglob('*')):
+              if not path.is_file():
+                  continue
+              raw = path.read_bytes()
+              files.append({'path': path.relative_to(root).as_posix(), 'bytes': len(raw), 'sha256': hashlib.sha256(raw).hexdigest()})
+              if path.suffix.lower() in ('.html', '.htm', '.css', '.js', '.orig'):
+                  text = raw.decode('utf-8', errors='replace')
+                  references.update(re.findall(r'''https?://[^\s<>"'\\)]+''', text))
+          external = sorted(url for url in references if urlsplit(url).hostname not in ('vahope.net', 'www.vahope.net'))
+          total = sum(item['bytes'] for item in files)
+          html_count = sum(item['path'].lower().endswith(('.html', '.htm')) for item in files)
+          manifest = {'file_count': len(files), 'total_bytes': total, 'html_file_count': html_count, 'files': files, 'external_references': external, 'limitations': ['No authentication, form submission, or source-site writes.', 'Robots rules are respected.', 'JavaScript is not executed; script-generated URLs and lazy-loaded resources may be missing.', 'Only vahope.net and www.vahope.net are crawled. External references are inventoried, not mirrored.', 'Depth, duration, and size limits can produce a partial capture.', 'A successful job is not proof of a complete migration or a functioning preview.']}
+          (root / 'manifest.json').write_text(json.dumps(manifest, indent=2), encoding='utf-8')
+          summary = f'## Legacy website capture\n\nFiles: {len(files)}\n\nHTML files: {html_count}\n\nBytes: {total}\n\nExternal references to review: {len(external)}\n\nThis is a bounded capture, not a verified complete clone. No deployment or DNS change was performed.\n'
+          (root / 'README.md').write_text(summary, encoding='utf-8')
+          if os.environ.get('GITHUB_STEP_SUMMARY'):
+              with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as handle:
+                  handle.write(summary)
+          print(summary)
+          PY
+      - name: Save capture for review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vahope-public-capture-${{ github.run_id }}
+          path: capture/
+          retention-days: 14
+          if-no-files-found: error
+      - name: Fail clearly when no HTML was captured
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('capture/manifest.json').read_text())
+          if report['html_file_count'] == 0:
+              raise SystemExit('No HTML captured. Inspect the connectivity report and crawl log.')
+          PY
