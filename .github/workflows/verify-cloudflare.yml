@@ -1,0 +1,30 @@
+name: Verify Cloudflare production
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/verify-cloudflare.yml
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - name: Verify vahopechurch.org
+        shell: bash
+        run: |
+          set -euo pipefail
+          url="https://vahopechurch.org/"
+          for i in {1..30}; do
+            code="$(curl -L --connect-timeout 10 --max-time 20 -sS -o /tmp/site.html -w '%{http_code}' "$url" || true)"
+            if [ "$code" = "200" ] && grep -qi '<html' /tmp/site.html; then
+              echo "Verified $url returns HTML with HTTP 200."
+              exit 0
+            fi
+            echo "Attempt $i: HTTP ${code:-none}"
+            sleep 10
+          done
+          echo "Production domain did not return HTML 200 within verification window." >&2
+          exit 1
