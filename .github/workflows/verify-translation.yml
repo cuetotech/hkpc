@@ -1,0 +1,40 @@
+name: Verify website translation
+
+on:
+  pull_request:
+    paths:
+      - wrangler.jsonc
+      - package.json
+      - src/worker.js
+      - public/i18n/**
+      - tests/**
+      - .github/workflows/verify-translation.yml
+  push:
+    branches: [main]
+    paths:
+      - wrangler.jsonc
+      - package.json
+      - src/worker.js
+      - public/i18n/**
+      - tests/**
+      - .github/workflows/verify-translation.yml
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Route regression and API tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Check JavaScript syntax
+        run: |
+          node --check src/worker.js
+          node --check public/i18n/language.js
+      - name: Run automated regression suite
+        run: npm test
