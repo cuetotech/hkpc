@@ -46,4 +46,17 @@ Do not place passwords, tokens, browser cookies, authenticated HAR files, member
 
 ## Deployment status
 
-No website deployment, domain cutover, or DNS/email change has been performed by this capture setup. The chosen static-hosting configuration and completeness assessment remain open.
+A pastor-review preview has been published through the already-enabled GitHub Pages site in `cuetotech/cuetotech.github.io`.
+
+- **Preview path:** `http://cueto.tech/hkpc/`
+- **Website source of truth:** `cuetotech/hkpc`
+- **Published snapshot branch:** `gh-pages`
+- **Final snapshot commit:** `33ae4b936a68e022ad8145b0b82357c4c12c39cd`
+- **Capture:** 812 pages attempted, 1,951 assets attempted, 2,746 files saved, 373,334,409 bytes.
+- **Known capture gaps:** 16 fetch failures. Fifteen are resources already returning 404 from the source site. One archived MP4 exceeds the 95 MiB per-file preservation ceiling and is not stored in Git.
+- **Safety:** forms are disabled and mirrored pages use `noindex,nofollow,noarchive`.
+- **Production state:** `vahope.net`, its DNS, email, and Church-Love hosting have not been changed.
+- **Custom domain:** `vahopechurch.org` is not connected yet. The interim Pages preview exists so the pastor can review the replica before any production-domain decision.
+
+GitHub Pages reported the combined artifact deployment successful. Direct external HTTP/DNS verification is not available from the current assistant execution network, so the deployment receipt and published artifact are the authoritative publication evidence for this pass.
+
