@@ -220,11 +220,18 @@ def rewrite_html(data: bytes, source_url: str, source_path: Path) -> bytes:
     text = data.decode(encoding, errors="replace")
     soup = BeautifulSoup(text, "html.parser")
 
+    if soup.html and not soup.html.get("lang"):
+        soup.html["lang"] = "ko"
+
     if soup.head:
         meta = soup.new_tag("meta")
         meta.attrs["name"] = "robots"
         meta.attrs["content"] = "noindex,nofollow,noarchive"
         soup.head.append(meta)
+
+    for img in soup.find_all("img"):
+        if not img.has_attr("alt"):
+            img["alt"] = ""
 
     attr_specs = [
         ("a", "href", "auto"),
