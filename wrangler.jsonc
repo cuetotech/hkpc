@@ -10,18 +10,40 @@
     {
       "name": "TRANSLATION_LIMITER",
       "namespace_id": "18062026",
-      "simple": { "limit": 30, "period": 60 }
+      "simple": {
+        "limit": 30,
+        "period": 60
+      }
     }
   ],
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
-    "run_worker_first": ["/", "/*.html", "/api/*"]
+    "run_worker_first": [
+      "/",
+      "/*.html",
+      "/api/*"
+    ]
   },
   "routes": [
     {
       "pattern": "vahopechurch.org",
       "custom_domain": true
     }
-  ]
+  ],
+  "previews": {
+    "ai": {
+      "binding": "AI"
+    },
+    "ratelimits": [
+      {
+        "name": "TRANSLATION_LIMITER",
+        "namespace_id": "18062027",
+        "simple": {
+          "limit": 30,
+          "period": 60
+        }
+      }
+    ]
+  }
 }
