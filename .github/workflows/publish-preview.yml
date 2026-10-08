@@ -1,0 +1,98 @@
+name: Build faithful vahope preview
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - scripts/capture_static.py
+      - .github/workflows/publish-preview.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hkpc-static-preview
+  cancel-in-progress: true
+
+jobs:
+  capture-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+
+      - name: Install capture dependencies
+        run: python -m pip install --disable-pip-version-check requests beautifulsoup4
+
+      - name: Capture and normalize legacy site
+        run: python scripts/capture_static.py
+
+      - name: Basic static validation
+        shell: bash
+        run: |
+          test -s site/index.html
+          test -s site/capture-report.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('site/capture-report.json').read_text(encoding='utf-8'))
+          print(json.dumps({k: report[k] for k in ('pages_attempted','assets_attempted','files_saved','bytes_saved','failure_count')}, indent=2))
+          if report['files_saved'] < 25:
+              raise SystemExit('Capture contains too few files')
+          PY
+
+      - name: Smoke test over HTTP
+        shell: bash
+        run: |
+          python -m http.server 4173 --directory site >/tmp/hkpc-http.log 2>&1 &
+          server_pid=$!
+          trap 'kill $server_pid 2>/dev/null || true' EXIT
+          for i in {1..20}; do
+            if curl --fail --silent http://127.0.0.1:4173/ >/tmp/hkpc-index.html; then
+              break
+            fi
+            sleep 0.5
+          done
+          test -s /tmp/hkpc-index.html
+          grep -qi '<html' /tmp/hkpc-index.html
+
+      - name: Stage static site
+        shell: bash
+        run: |
+          rm -rf "$RUNNER_TEMP/hkpc-site"
+          mkdir -p "$RUNNER_TEMP/hkpc-site"
+          cp -a site/. "$RUNNER_TEMP/hkpc-site/"
+
+      - name: Publish gh-pages branch
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan gh-pages-tmp
+          git rm -rf . >/dev/null 2>&1 || true
+          cp -a "$RUNNER_TEMP/hkpc-site/." .
+          git add -A
+          git commit -m "Publish vahope static preview from run ${GITHUB_RUN_ID}"
+          git push --force origin HEAD:gh-pages
+
+      - name: Summary
+        shell: bash
+        run: |
+          {
+            echo '## HKPC static preview published'
+            echo
+            echo 'Static output was pushed to the gh-pages branch.'
+            echo
+            echo 'Expected Pages URL once GitHub Pages is enabled for the branch:'
+            echo
+            echo 'https://cuetotech.github.io/hkpc/'
+          } >> "$GITHUB_STEP_SUMMARY"
