@@ -1,0 +1,9 @@
+.defaultDiv { position: relative; float:left;}
+.w100 { width: 100%;}
+.responsiveBody {font-family: 'Nanum Gothic'; font-weight: 400; font-size: 13px; color: #666; line-height:1.6; margin: 0; padding: 0;}
+
+
+.hyMap {width:100%; position:relative; float:left;}
+.mapArea {border:1px solid #e2e2e2;}
+.mapText {color:#fff; position:relative; margin:0 auto;}
+.mapCon {width:100%; margin:0 auto; position:relative; min-height:100px; border-radius:0 0 5px 5px;}

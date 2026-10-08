@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "hkpc",
+  "compatibility_date": "2026-10-07",
+  "assets": {
+    "directory": "./public"
+  },
+  "routes": [
+    {
+      "pattern": "vahopechurch.org",
+      "custom_domain": true
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*개인정보보호처리방침*/
+.pal_info01 { position:relative; float:left; width:600px; height:770px; background:url('../images/main/personal_info.jpg') left top no-repeat;}
+.textArea01 { position:relative; float:left; width:540px; height:640px; background-color:transparent; border:0; margin:90px 0 0 30px; line-height:22px;} 
+
+/*이메일무단수집거부*/
+.pal_info02 { position:relative; float:left; width:428px; height:286px; background:url('../images/main/email.jpg') left top no-repeat;}
+.textArea02 { position:relative; float:left; width:370px; height:110px; background-color:transparent; border:0; margin:90px 0 0 30px; line-height:22px;} 

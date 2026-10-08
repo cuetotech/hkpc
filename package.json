@@ -1,0 +1,11 @@
+{
+  "name": "hkpc-site",
+  "private": true,
+  "version": "0.1.0",
+  "devDependencies": {
+    "wrangler": "4.148.0"
+  },
+  "scripts": {
+    "deploy": "wrangler deploy"
+  }
+}

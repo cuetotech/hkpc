@@ -1,0 +1,11 @@
+@charset "utf-8";
+/* CSS Document */
+
+.categoryBox {border-top:3px solid #4a89dc;}
+.categoryBox a:hover {color:#4a89dc;}
+
+.cateTitle {background:url('../images/C02/icon02.jpg') 10px center no-repeat;}
+
+.p_text {background:#dfedff; border-top:1px solid #4a89dc;}
+
+.p_btn_open {border-top:1px solid #4a89dc;}

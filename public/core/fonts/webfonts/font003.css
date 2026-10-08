@@ -1,0 +1,8 @@
+
+
+@font-face {
+  font-family: 'Nanum Pen Script';
+  src: url('font003/NanumPenScript-Regular.eot');
+  src: url('font003/NanumPenScript-Regular.eot') format('embedded-opentype'),
+       url('font003/NanumPenScript-Regular.woff') format('woff');
+}

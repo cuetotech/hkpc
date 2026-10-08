@@ -1,0 +1,39 @@
+@charset "utf-8";
+@import url('../../../fonts/webfonts/font001.css');    /* 나눔고딕 font-family: NanumGothic; */
+@import url('../../../fonts/webfonts/font002.css');    /* 나눔명조 font-family: Nanum Myeongjo; */
+@import url('../../../fonts/webfonts/font003.css');    /* 나눔손글씨 font-family: Nanum Pen Script; */
+@import url('../../../fonts/webfonts/font004.css');    /* 나눔붓글씨 font-family: Nanum Brush Script; */
+
+/*default*/
+
+h1, h2, h3, h4, h5, h6 { margin:0; padding:0;}
+form, ul, li, dl, dt, dd, p { margin:0; padding:0;}
+th { text-align: center;}
+fieldset, legend { border: none; margin:0; padding:0;}
+#accessibility, legend, caption { display: none;}
+
+body{ margin: 0; padding: 0;font-family: 'Nanum Gothic' !important;}
+img { margin: 0px; padding: 0px; border: 0px none;}
+select { margin: 0; padding: 0;}
+input { margin: 0; padding: 0;}
+ul li { margin:0px; padding:0px; list-style:none;}
+
+
+/* 이미지 강제 왼쪽 정렬 */
+.float { float: left;}
+.right { float: right;}
+
+/* 이미지 강제 왼쪽 정렬해제 및 중앙정렬 */
+.floatnone { float: none; vertical-align: middle; margin-bottom: 2px;}
+
+
+.defaultDiv { position:relative; float:left;}
+.w100 { width: 100%;}
+
+
+/*top*/
+.topwrap { width:100%; background:url('../images/main/menutopbg.jpg') top center no-repeat;}
+
+.bottom { position:relative; width:100%; height:151px; background:#484848; float:left;}
+.copyright {position:relative; width:100%;  margin:0 auto;}
+.address {position:relative; width:100%; float:left; text-align:center; margin-top:55px; font-size:12px;  color:#b4b4b4; line-height:180%;}
