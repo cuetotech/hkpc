@@ -46,17 +46,17 @@ Do not place passwords, tokens, browser cookies, authenticated HAR files, member
 
 ## Deployment status
 
-A pastor-review preview has been published through the already-enabled GitHub Pages site in `cuetotech/cuetotech.github.io`.
+Cloudflare Workers is the canonical deployment target.
 
-- **Preview path:** `http://cueto.tech/hkpc/`
-- **Website source of truth:** `cuetotech/hkpc`
-- **Published snapshot branch:** `gh-pages`
-- **Final snapshot commit:** `33ae4b936a68e022ad8145b0b82357c4c12c39cd`
-- **Capture:** 812 pages attempted, 1,951 assets attempted, 2,746 files saved, 373,334,409 bytes.
-- **Known capture gaps:** 16 fetch failures. Fifteen are resources already returning 404 from the source site. One archived MP4 exceeds the 95 MiB per-file preservation ceiling and is not stored in Git.
-- **Safety:** forms are disabled and mirrored pages use `noindex,nofollow,noarchive`.
-- **Production state:** `vahope.net`, its DNS, email, and Church-Love hosting have not been changed.
-- **Custom domain:** `vahopechurch.org` is not connected yet. The interim Pages preview exists so the pastor can review the replica before any production-domain decision.
+- **Production domain:** `https://vahopechurch.org/`
+- **Worker:** `hkpc`
+- **Source branch:** `main`
+- **Static assets:** `public/`
+- **Configuration:** `wrangler.jsonc`
+- **Deployment:** Cloudflare Workers Builds via the connected GitHub integration.
+- **Verification:** GitHub independently verified that `https://vahopechurch.org/` returns HTML with HTTP 200 after the Cloudflare deployment.
+- **Legacy production:** `vahope.net`, its email/DNS, and Church-Love hosting remain unchanged.
+- **GitHub Pages:** deprecated for this project; the old `cueto.tech/hkpc/` preview is no longer the deployment authority.
+- **Visual status:** the current preservation snapshot is technically deployed but has been rejected for visual fidelity. It must not be treated as pastor-ready until the presentation layer is rebuilt and validated against the legacy site on desktop and mobile.
 
-GitHub Pages reported the combined artifact deployment successful. Direct external HTTP/DNS verification is not available from the current assistant execution network, so the deployment receipt and published artifact are the authoritative publication evidence for this pass.
-
+The repository retains the recovered public corpus as the source material for the visual remediation pass. The Cloudflare deployment path is now working; the remaining website work is presentation quality and content validation, not hosting plumbing.
