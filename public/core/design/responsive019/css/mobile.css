@@ -1,0 +1,52 @@
+@charset "utf-8";
+@import url("./tablet.css");
+
+/* Phones (up to 600px): vertical content, readable cards and tappable links. */
+@media (max-width:600px) {
+  body { min-width:0; overflow-x:hidden; }
+  .top { height:98px; padding:0 14px; }
+  .logo { padding-top:16px; max-width:55%; }
+  .logo img { max-width:100%; max-height:65px; }
+  .tableTopmenu { top:18px; right:10px; gap:6px; }
+  .tableTopmenu a { width:44px; height:44px; }
+  .contbody .mainTextTablet { padding:16px 12px 10px; }
+  .contWrapbox { display:flex; flex-direction:column; gap:18px; max-width:520px; padding:0 12px; }
+  .leftBox, .rightbox { width:100%; float:none; }
+  .mainVisualBox { display:flex; justify-content:center; min-height:0; }
+  #slider1_container { display:none !important; }
+  #slider2_container { display:block !important; position:relative; flex:0 0 320px; width:320px !important; max-width:100%; height:282px !important; float:none; }
+  #slider2_container .slidebox01 { width:320px; height:282px; }
+  #slider2_container .slidebox01 img { width:320px; height:282px; }
+  .nosermon, .sermon { display:none; }
+  .nosermonMobile { box-sizing:border-box; display:block; width:100%; min-height:92px; margin-top:12px; padding:15px; background:#315577; text-align:center; }
+  .nosermonMobile img { display:block; max-width:100%; height:auto; margin:0 auto; }
+  .nosermonMobile .mtit02 { margin-top:8px; }
+  .boardBox { display:flex; flex-direction:column; gap:10px; min-height:0; background:transparent; }
+  .board01, .board02 { box-sizing:border-box; width:100%; height:auto; min-height:0; float:none; padding:16px; border-radius:8px; }
+  .board01 { background:#294966; }
+  .board02 { background:#f3f5f7; }
+  .btit01, .btit02 { margin:0 0 12px; }
+  .boardList01, .boardList02 { margin:0; padding:0; }
+  .boardList01 ul li, .boardList02 ul li { display:flex; float:none; min-width:0; padding:6px 0; border-bottom:1px solid rgba(128,128,128,.2); font-size:14px; }
+  .boardList01 .Bsubj a, .boardList02 .Bsubj a { line-height:1.5; padding:3px 0; white-space:normal; overflow-wrap:anywhere; }
+  .boardList01 .Bdate, .boardList02 .Bdate { align-self:center; font-size:11px; white-space:nowrap; }
+  .mboard01, .mboard02 { display:none; }
+  .photoBox { min-height:0; padding:15px; border-radius:8px; }
+  .photolistPC { display:none; }
+  .photolistM { display:block; float:none; margin:0; }
+  .photolistM ul { display:flex; justify-content:center; gap:10px; }
+  .photolistM li { box-sizing:border-box; flex:1 1 0; min-width:0; float:none; padding-right:0 !important; }
+  .photolistM img { display:block; width:100%; max-width:100%; height:auto; aspect-ratio:147 / 106; object-fit:cover; }
+  .btnbox { grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px; }
+  .btn01, .btn02, .btn03 { border-radius:7px; background-color:#365677; height:96px; }
+  .iconarea { margin-top:13px; }
+  .iconarea a { display:block; min-height:48px; }
+  .iconarea img { max-width:50px; max-height:44px; }
+  .iconname img { max-width:100%; }
+  .bottom { min-height:0; padding:22px 16px; }
+  .address { font-size:12px; line-height:1.7; }
+}
+@media (max-width:339px) {
+  /* Preserve the 320px legacy Jssor dimensions by scaling its containing box. */
+  #slider2_container { transform:scale(.875); transform-origin:top center; margin-bottom:-35px; }
+}

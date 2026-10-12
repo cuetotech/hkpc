@@ -127,5 +127,21 @@ export default {async fetch(request,env,ctx){
  if(new URL(request.url).pathname==='/api/translate')return translate(request,env,ctx);
  const result=await env.ASSETS.fetch(request);
  if(!result.ok||request.method==='HEAD'||!(result.headers.get('content-type')||'').toLowerCase().includes('text/html'))return result;
- return new HTMLRewriter().on('head',{element(el){el.append('<link rel="stylesheet" href="/i18n/language.css">',{html:true});}}).on('body',{element(el){el.prepend(widget,{html:true});el.append('<script defer src="/i18n/language.js"></script>',{html:true});}}).transform(result);
+ return new HTMLRewriter()
+  .on('head',{element(el){
+    el.append('<link rel="stylesheet" href="/core/design/responsive019/css/navigation.css">',{html:true});
+    el.append('<link rel="stylesheet" href="/i18n/language.css">',{html:true});
+  }})
+  .on('meta[name="viewport"]',{element(el){
+    el.setAttribute('content','width=device-width, initial-scale=1');
+  }})
+  .on('link[id="responsiveCss"]',{element(el){
+    const path=new URL(request.url).pathname;
+    const isInner=path.startsWith('/main/')&&!path.endsWith('/main.html');
+    el.setAttribute('href','/core/design/responsive019/css/'+(isInner?'s_pc.css':'pc.css'));
+  }})
+  .on('body',{element(el){
+    el.prepend(widget,{html:true});
+    el.append('<script defer src="/i18n/mobile-navigation.js"></script><script defer src="/i18n/language.js"></script>',{html:true});
+  }}).transform(result);
 }};

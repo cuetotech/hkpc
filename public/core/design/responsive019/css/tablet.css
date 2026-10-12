@@ -1,0 +1,50 @@
+@charset "utf-8";
+@import url("./pc.css");
+
+/* Layout for medium screens (601–1199px). */
+@media (max-width:1199px) {
+  body { min-width:0; overflow-x:hidden; }
+  img, iframe, video { max-width:100%; }
+  .topwrap { background-color:#34445b; background-size:auto 178px; }
+  .top { box-sizing:border-box; width:100%; max-width:980px; height:132px; padding:0 20px; }
+  .logo { text-align:left; padding-top:24px; }
+  .logo img { width:auto; max-width:164px; height:auto; }
+  .contbody { float:none; box-sizing:border-box; padding:0 0 24px; }
+  .contbody .mainTextPC { display:none; }
+  .contbody .mainTextTablet { display:block; box-sizing:border-box; width:100%; max-width:980px; height:auto; padding:22px 20px 12px; margin:0 auto; text-align:center; }
+  .mainTextTablet img { max-width:100%; height:auto; }
+  .contWrapbox { box-sizing:border-box; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; width:100%; max-width:1000px; height:auto; min-height:0; margin:0 auto; padding:0 18px; }
+  .leftBox, .rightbox { box-sizing:border-box; width:100%; float:none; min-width:0; }
+  .mainVisualBox { display:flex; justify-content:center; align-items:start; width:100%; height:auto; float:none; }
+  #slider1_container { float:none; max-width:100%; }
+  #slider2_container { display:none; }
+  .nosermon, .sermon { box-sizing:border-box; float:none; width:100%; max-width:490px; height:auto; min-height:88px; margin:14px auto 0; background-size:100% 100%; }
+  .nosermon img, .sermon img { max-width:100%; height:auto; }
+  .rightbox { display:flex; flex-direction:column; gap:14px; }
+  .boardBox { box-sizing:border-box; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); width:100%; height:auto; min-height:221px; float:none; background:linear-gradient(90deg,#294966 50%,#f5f5f5 50%); }
+  .board01, .board02 { box-sizing:border-box; width:100%; height:auto; min-height:221px; float:none; }
+  .btit01, .btit02 { box-sizing:border-box; width:100%; margin-top:22px; float:none; }
+  .boardList01, .boardList02 { box-sizing:border-box; width:100%; margin:22px 0 0; padding:0 10px; float:none; }
+  .boardList01 ul li, .boardList02 ul li { display:flex; justify-content:space-between; width:100%; float:none; line-height:1.8; gap:5px; }
+  .boardList01 .Bsubj, .boardList02 .Bsubj { min-width:0; flex:1; }
+  .boardList01 .Bsubj a, .boardList02 .Bsubj a { float:none; width:auto; display:block; }
+  .boardList01 .Bdate, .boardList02 .Bdate { flex:0 0 auto; float:none; width:auto; }
+  .photoBox { box-sizing:border-box; width:100%; height:auto; min-height:180px; padding:12px; float:none; background:#fff url("../images/main/photobg.gif") center / cover no-repeat; }
+  .ptit { width:100%; float:none; margin:5px 0 10px; }
+  .photolistPC { float:none; margin:0; }
+  .photolistPC ul { display:flex; gap:8px; justify-content:center; }
+  .photolistPC li { float:none; flex:1 1 0; min-width:0; padding-right:0 !important; }
+  .photolistPC img { display:block; width:100%; height:auto; aspect-ratio:147 / 106; object-fit:cover; }
+  .btnbox { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0; width:100%; height:auto; min-height:88px; margin:0; float:none; }
+  .btn01, .btn02, .btn03 { box-sizing:border-box; float:none; width:100%; height:88px; background-color:#365677; background-size:cover; }
+  .iconarea, .iconname { box-sizing:border-box; width:100%; float:none; }
+  .iconarea img, .iconname img { max-width:100%; }
+  .bottom { box-sizing:border-box; float:none; clear:both; width:100%; height:auto; min-height:140px; padding:20px 14px; margin:0; }
+  .copyright { height:auto; }
+  .address { box-sizing:border-box; margin:0; float:none; overflow-wrap:anywhere; }
+}
+@media (min-width:601px) and (max-width:850px) {
+  .contWrapbox { grid-template-columns:minmax(0,1fr); max-width:540px; }
+  .leftBox, .rightbox { width:100%; }
+  .mainVisualBox { min-height:431px; }
+}
