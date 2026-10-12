@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+/* Shared keyboard-accessible desktop navigation and touch-friendly sitemap. */
+#mainMenu.hkpc-desktop-nav { box-sizing:border-box; float:none; width:100% !important; height:auto !important; margin:0; }
+.hkpc-desktop-nav ul { margin:0; padding:0; list-style:none; }
+.hkpc-desktop-nav > ul { display:flex; align-items:stretch; justify-content:space-between; width:100%; }
+.hkpc-desktop-nav > ul > li { flex:1 1 0; min-width:0; position:relative; text-align:center; }
+.hkpc-desktop-nav a { display:block; padding:15px 8px; color:#fff; text-decoration:none; font-size:15px; font-weight:700; line-height:1.5; }
+.hkpc-desktop-nav > ul > li > a:hover,
+.hkpc-desktop-nav > ul > li > a:focus-visible { background:#38546f; }
+.hkpc-desktop-nav .hkpc-subnav { position:absolute; top:100%; left:0; min-width:190px; width:max-content; max-width:270px; background:#fff; box-shadow:0 8px 20px rgba(0,0,0,.22); border:1px solid #d3dce5; z-index:80; display:none; text-align:left; }
+.hkpc-desktop-nav .hkpc-subnav a { color:#283a4b; padding:12px 16px; font-weight:500; white-space:normal; }
+.hkpc-desktop-nav .hkpc-subnav a:hover,
+.hkpc-desktop-nav .hkpc-subnav a:focus-visible { color:#143859; background:#eef4fa; }
+.hkpc-desktop-nav li:hover > .hkpc-subnav,
+.hkpc-desktop-nav li:focus-within > .hkpc-subnav { display:block; }
+.navi:has(.hkpc-desktop-nav) { overflow:visible; z-index:30; }
+a:focus-visible, button:focus-visible, [role="button"]:focus-visible { outline:3px solid #efb85e; outline-offset:2px; }
+#mobileSiteMap { overscroll-behavior:contain; }
+#mobileSiteMap > div { box-sizing:border-box; width:min(90%, 430px) !important; min-height:100%; background:#545460; }
+#mobileSiteMap .allmenuclose { width:24px; height:24px; cursor:pointer; margin-left:12px; }
+#mobileSiteMap #moFullMenu { box-sizing:border-box; padding:0 0 28px !important; }
+#mobileSiteMap #moFullMenu li { box-sizing:border-box; float:none; width:100%; height:auto !important; min-height:48px; }
+#mobileSiteMap #moFullMenu > li.menuOn,
+#mobileSiteMap #moFullMenu > li.menuOff { line-height:normal; }
+#mobileSiteMap #moFullMenu button,
+#mobileSiteMap #moFullMenu a { box-sizing:border-box; display:block; width:100%; min-height:48px; padding:13px 18px; background:transparent; border:0; color:#fff; text-align:left; text-decoration:none; font:inherit; font-size:16px; cursor:pointer; }
+#mobileSiteMap #moFullMenu button::after { content:"+"; float:right; font-size:20px; }
+#mobileSiteMap #moFullMenu .menuOn button::after { content:"−"; }
+#mobileSiteMap #moFullMenu ul { box-sizing:border-box; padding:0 0 4px !important; margin:0; }
+#mobileSiteMap #moFullMenu ul li { padding:0 !important; }
+#mobileSiteMap #moFullMenu ul a { padding:12px 26px; font-size:15px; background:rgba(10,15,25,.16); }
+#mobileSiteMap #moFullMenu p { margin:0; }
+#mobileSiteMap #moFullMenu a:hover,
+#mobileSiteMap #moFullMenu button:hover { background-color:rgba(255,255,255,.12); }
+@media (max-width:1199px) {
+  .hntopMenu, .navi { display:none !important; }
+  .tableTopmenu { display:flex !important; gap:12px; align-items:center; position:absolute; top:26px; right:18px; z-index:35; }
+  .tableTopmenu a { display:flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:8px; background:rgba(255,255,255,.14); }
+  .tableTopmenu img { display:block; max-width:28px; max-height:28px; }
+  #mobileSiteMap { background:rgba(0,0,0,.48); z-index:1000 !important; }
+}
