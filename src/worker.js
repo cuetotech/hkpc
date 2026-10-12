@@ -132,6 +132,9 @@ export default {async fetch(request,env,ctx){
     el.append('<link rel="stylesheet" href="/core/design/responsive019/css/navigation.css">',{html:true});
     el.append('<link rel="stylesheet" href="/i18n/language.css">',{html:true});
   }})
+  .on('meta[name="viewport"]',{element(el){
+    el.setAttribute('content','width=device-width, initial-scale=1');
+  }})
   .on('link[id="responsiveCss"]',{element(el){
     const path=new URL(request.url).pathname;
     const isInner=path.startsWith('/main/')&&!path.endsWith('/main.html');
