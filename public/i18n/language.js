@@ -61,8 +61,8 @@ function segments(text){
  return pieces;
 }
 async function translate(batch,lang){
- const response=await fetch('/api/translate',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({language:lang,texts:batch.map(p=>p.text)})});
- if(!response.ok)throw Error('Translation service unavailable: '+response.status);
+ const response=await fetch('/api/page-translate',{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify({language:lang,path:location.pathname,texts:batch.map(p=>p.text)})});
+ if(!response.ok)throw Error('Page translation service unavailable: '+response.status);
  const body=await response.json();
  if(body.language!==lang||!Array.isArray(body.translations)||body.translations.length!==batch.length||body.translations.some(t=>typeof t!=='string'||!t.trim()))throw Error('Unexpected response');
  batch.forEach((p,i)=>{p.result=body.translations[i];cache.set(lang+'\u0000'+p.text,p.result);});
@@ -85,20 +85,22 @@ async function process(){
   const key=lang+'\u0000'+part.text;
   if(cache.has(key))part.result=cache.get(key);else pending.push(part);
  }
+ // One manifest per page; split only when the backend's bounded payload requires it.
+ const unique=[...new Map(pending.map(p=>[p.text,p])).values()];
  const groups=[];let group=[],length=0;
- for(const part of pending){
-  if(group.length===8||length+part.text.length>3000){groups.push(group);group=[];length=0;}
+ for(const part of unique){
+  if(group.length&&(group.length===24||length+part.text.length>7600)){groups.push(group);group=[];length=0;}
   group.push(part);length+=part.text.length;
  }
  if(group.length)groups.push(group);
  let failed=false;
  let position=0;
- await Promise.all([0,1].map(async()=>{
-  while(position<groups.length&&stamp===revision){
-   const batch=groups[position++];
-   try{await translate(batch,lang);}catch(error){console.warn('Translation:',error);failed=true;break;}
-  }
- }));
+ // Sequential bundles avoid bursts of paid inference and rate-limit exhaustion.
+ for(;position<groups.length&&stamp===revision;position++){
+  try{await translate(groups[position],lang);}catch(error){console.warn('Translation:',error);failed=true;break;}
+ }
+ // Multiple DOM nodes with identical Korean source share the same returned value.
+ for(const part of pending)if(part.result===null)part.result=cache.get(lang+'\u0000'+part.text)??null;
  if(stamp===revision){
   observer.disconnect();
   for(const state of states){

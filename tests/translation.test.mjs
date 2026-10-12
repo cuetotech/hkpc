@@ -50,6 +50,68 @@ function fixture({ database, delay=0, failStore=false, badOutput=false, deny=fal
  return {disk,edge,objects,calls,limits,jobs,env,ctx,request,async flush(){await Promise.all(jobs);}};
 }
 
+// Page bundles are stored server-side and reuse the existing segment cache.
+const pageRequest=(texts,language='en',path='/main/sub__pageCode-1.html')=>
+ new Request(ORIGIN+'/api/page-translate',{method:'POST',headers:{'Content-Type':'application/json','Origin':ORIGIN},
+ body:JSON.stringify({language,path,texts})});
+
+test('page manifest is generated once then served from the backend page cache',async()=>{
+ const f=fixture();
+ const texts=[KOREAN,'주일 예배','교회소식'];
+ const first=await worker.fetch(pageRequest(texts),f.env,f.ctx);
+ assert.equal(first.status,200);
+ assert.equal(first.headers.get('X-Translation-Cache'),'MISS-PAGE-GENERATED');
+ assert.deepEqual((await first.json()).translations,texts.map(x=>'Translated: '+x));
+ assert.equal(f.calls.length,1);
+ await f.flush();
+ const second=await worker.fetch(pageRequest(texts),f.env,f.ctx);
+ assert.equal(second.headers.get('X-Translation-Cache'),'HIT-PAGE-EDGE');
+ assert.equal(f.calls.length,1);
+ const other=fixture({database:f.disk});
+ const hit=await worker.fetch(pageRequest(texts),other.env,other.ctx);
+ assert.equal(hit.headers.get('X-Translation-Cache'),'HIT-PAGE-PERSISTENT');
+ assert.equal(other.calls.length,0);
+});
+
+test('page content changes reuse existing text rather than call AI again',async()=>{
+ const f=fixture();
+ await worker.fetch(pageRequest([KOREAN]),f.env,f.ctx);
+ const next=await worker.fetch(pageRequest([KOREAN,'교회소식']),f.env,f.ctx);
+ assert.equal(next.status,200);
+ assert.equal(f.calls.length,2);
+ assert.deepEqual(JSON.parse(f.calls[1].options.messages[1].content.split('Segments: ').at(-1)),['교회소식']);
+});
+
+test('concurrent page visitors share one generation',async()=>{
+ const f=fixture({delay:25});
+ const texts=[KOREAN,'주일 예배'];
+ const responses=await Promise.all(Array.from({length:6},()=>worker.fetch(pageRequest(texts),f.env,f.ctx)));
+ assert.ok(responses.every(x=>x.status===200));
+ assert.equal(f.calls.length,1);
+});
+
+test('page failures do not persist partial bundles or spend tokens without storage',async()=>{
+ const f=fixture({badOutput:true});
+ const texts=[KOREAN,'주일 예배'];
+ assert.equal((await worker.fetch(pageRequest(texts),f.env,f.ctx)).status,503);
+ const rows=f.disk.get('hkpc-en');
+ assert.equal([...rows.keys()].filter(k=>k.startsWith('page:')).length,0);
+ const other=fixture();
+ delete other.env.TRANSLATION_CACHE;
+ assert.equal((await worker.fetch(pageRequest(texts),other.env,other.ctx)).status,503);
+ assert.equal(other.calls.length,0);
+});
+
+test('page endpoint rejects invalid origins, paths, and excessive manifests',async()=>{
+ const f=fixture();
+ const bad=pageRequest([KOREAN],'en','/../admin');
+ assert.equal((await worker.fetch(bad,f.env,f.ctx)).status,400);
+ assert.equal((await worker.fetch(pageRequest(Array(25).fill(KOREAN)),f.env,f.ctx)).status,400);
+ const cross=new Request(ORIGIN+'/api/page-translate',{method:'POST',headers:{'Origin':'https://elsewhere.test','Content-Type':'application/json'},body:JSON.stringify({language:'en',path:'/',texts:[KOREAN]})});
+ assert.equal((await worker.fetch(cross,f.env,f.ctx)).status,403);
+ assert.equal(f.calls.length,0);
+});
+
 test('first use generates translation and durably stores it',async()=>{
  const f=fixture();
  const response=await worker.fetch(f.request(),f.env,f.ctx);
