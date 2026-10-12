@@ -1,0 +1,77 @@
+/* Base styles to fix layout within the new shell */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nanum Gothic', sans-serif;
+    background: url('../core/design/responsive019/images/main/bg.gif') top center repeat-y;
+}
+
+#site-wrapper {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* Ensure the main content wrapper aligns properly */
+#content-placeholder {
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Adjustments for topWrap (Header) */
+.topWrap {
+    width: 100%;
+    background: url('../core/design/responsive019/images/main/topbg.gif') top center repeat-x;
+}
+.top {
+    position: relative;
+    width: 1000px;
+    height: 178px;
+    margin: 0 auto;
+}
+.logo {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    padding-top: 36px;
+}
+.navi {
+    position: relative;
+    width: 100%;
+    height: 80px;
+    display: block;
+    overflow: hidden;
+}
+
+/* Footer Adjustments */
+.bottom {
+    width: 100%;
+    background: #44454f;
+    text-align: center;
+    padding: 20px 0;
+    color: #999;
+    font-size: 12px;
+}
+.bottom a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+/* Content block adjustments */
+.contbody {
+    position: relative;
+    width: 100%;
+    background: url('../core/design/responsive019/images/main/conbg.jpg') top center repeat-y;
+    float: left;
+}
+.contWrapbox {
+    position: relative;
+    width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* Responsive constraints */
+@media screen and (max-width: 1199px) {
+    .top { width: 100%; }
+    .contWrapbox { width: 100%; padding: 0 10px; box-sizing: border-box; }
+}

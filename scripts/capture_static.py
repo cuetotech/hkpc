@@ -46,6 +46,14 @@ SEEDS = [
     "/main/sub.html?pageCode=15",
 ]
 
+
+# Load the static shell
+try:
+    SHELL_TEMPLATE = Path('templates/shell.html').read_text(encoding='utf-8')
+except FileNotFoundError:
+    SHELL_TEMPLATE = "<html><head><title>버지니아소망교회</title></head><body><!--PAGE_CONTENT--></body></html>"
+
+
 session = requests.Session()
 session.headers.update({"User-Agent": "HKPC-Website-Preservation/2.0 (+https://github.com/cuetotech/hkpc)"})
 
@@ -159,6 +167,11 @@ def enqueue_asset(url: str) -> None:
 
 
 def fetch(url: str) -> requests.Response | None:
+    # Bypass live fetch for our custom injected local assets
+    if url.endswith(('/css/site.css', '/css/menu.css', '/js/menu.js', '/js/slider.js')):
+        # We handle these by copying them later; do not fetch from live.
+        return None
+
     global total_bytes
     try:
         response = session.get(url, timeout=25, allow_redirects=True, stream=True)
@@ -219,6 +232,56 @@ def rewrite_html(data: bytes, source_url: str, source_path: Path) -> bytes:
     encoding = "utf-8"
     text = data.decode(encoding, errors="replace")
     soup = BeautifulSoup(text, "html.parser")
+
+    # Content Extraction Logic
+    # Extract Title
+    page_title = "버지니아소망교회"
+    if soup.title and soup.title.string:
+        page_title = soup.title.string.strip()
+
+    # Extract core content
+    contbody = soup.find('div', class_='contbody')
+    cwrap = soup.find('div', class_='cwrap')
+    cont_wrap = soup.find('div', class_='contWrapbox')
+
+    if cwrap:
+        content_html = cwrap.prettify()
+    elif contbody:
+        content_html = contbody.prettify()
+    elif cont_wrap:
+        content_html = cont_wrap.prettify()
+    elif soup.body:
+        content_html = soup.body.prettify()
+    else:
+        content_html = str(soup)
+
+    # Wrap in shell (parse the shell to avoid string injection issues)
+    shell_soup = BeautifulSoup(SHELL_TEMPLATE, "html.parser")
+
+    if shell_soup.title:
+        shell_soup.title.string = page_title
+
+    placeholder = shell_soup.find(id='content-placeholder')
+    if placeholder:
+        placeholder.clear()
+        placeholder.append(BeautifulSoup(content_html, "html.parser"))
+
+    # Inject dependencies BEFORE returning to the crawler loop for processing.
+    # The crawler rewrites URL paths to relative paths based on depth if we use full domains or absolute paths.
+    if shell_soup.head:
+        css1 = shell_soup.new_tag("link", rel="stylesheet", href="http://vahope.net/css/site.css", type="text/css")
+        css2 = shell_soup.new_tag("link", rel="stylesheet", href="http://vahope.net/css/menu.css", type="text/css")
+        shell_soup.head.append(css1)
+        shell_soup.head.append(css2)
+
+    if shell_soup.body:
+        js1 = shell_soup.new_tag("script", src="http://vahope.net/js/menu.js")
+        js2 = shell_soup.new_tag("script", src="http://vahope.net/js/slider.js")
+        shell_soup.body.append(js1)
+        shell_soup.body.append(js2)
+
+    # Re-parse to process URLs correctly
+    soup = BeautifulSoup(str(shell_soup), "html.parser")
 
     if soup.head:
         meta = soup.new_tag("meta")
@@ -325,6 +388,20 @@ def main() -> int:
     if OUT.exists():
         shutil.rmtree(OUT)
     OUT.mkdir(parents=True)
+
+    # Copy our static presentation layer assets
+    if Path("templates/site.css").exists():
+        (OUT / "css").mkdir(exist_ok=True)
+        shutil.copy("templates/site.css", OUT / "css" / "site.css")
+    if Path("templates/menu.css").exists():
+        (OUT / "css").mkdir(exist_ok=True)
+        shutil.copy("templates/menu.css", OUT / "css" / "menu.css")
+    if Path("templates/menu.js").exists():
+        (OUT / "js").mkdir(exist_ok=True)
+        shutil.copy("templates/menu.js", OUT / "js" / "menu.js")
+    if Path("templates/slider.js").exists():
+        (OUT / "js").mkdir(exist_ok=True)
+        shutil.copy("templates/slider.js", OUT / "js" / "slider.js")
 
     for seed in SEEDS:
         url = canonicalize(seed, SOURCE + "/")
