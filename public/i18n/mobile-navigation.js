@@ -8,6 +8,13 @@
   ];
   function a(label,href){ var node=document.createElement("a");node.textContent=label;node.href=href;return node; }
   function init(){
+    /* Stop captured legacy scripts retrying forever against a missing menu XML. */
+    if(window.menu){
+      window.menu.createMobileFullMenu=function(){};
+      window.menu.createTabletMenu=function(){};
+      window.menu.siteMapOpen=function(){if(window.hkpcOpenMenu)window.hkpcOpenMenu();};
+      window.menu.siteMapClose=function(){if(window.hkpcCloseMenu)window.hkpcCloseMenu();};
+    }
     /* Legacy capture lacks the menu XML; replace its empty 980px desktop menu. */
     var desktop=document.getElementById("mainMenu");
     if(desktop){
@@ -48,6 +55,7 @@
         panel.addEventListener("click",function(event){if(event.target===panel)dismiss();});
         document.addEventListener("keydown",function(event){if(event.key==="Escape"&&panel.style.display!=="none")dismiss();});
       }
+      window.hkpcCloseMenu=dismiss;
       window.hkpcOpenMenu=function(){if(panel){panel.style.display="block";document.body.style.overflowY="hidden";var first=panel.querySelector("button");if(first)first.focus();}};
       var openers=document.querySelectorAll(".tableTopmenu .sitemap a, .hntopMenu a[href*='siteMapOpen']");
       openers.forEach(function(opener){opener.setAttribute("href","#mobileSiteMap");opener.setAttribute("aria-label","전체메뉴 열기");opener.addEventListener("click",function(event){event.preventDefault();window.hkpcOpenMenu();});});
