@@ -15,6 +15,27 @@ function parse(response,n){
 function validTexts(texts,lang){
  return Object.hasOwn(languages,lang)&&Array.isArray(texts)&&texts.length>=1&&texts.length<=8&&texts.every(t=>typeof t==='string'&&kor.test(t)&&t.length<=800&&t.trim())&&texts.join('').length<=3000;
 }
+// Page bundles complement the existing permanent per-segment cache.
+const PAGE_MAX_SEGMENTS=24, PAGE_MAX_CHARS=7600;
+function validPageBatch(texts,lang,path){
+ return Object.hasOwn(languages,lang)&&typeof path==='string'&&path.startsWith('/')&&!path.startsWith('//')&&path.length<=320&&!/[?#\\\x00]/.test(path)&&
+  !path.split('/').some(part=>part==='.'||part==='..')&&Array.isArray(texts)&&texts.length>=1&&texts.length<=PAGE_MAX_SEGMENTS&&
+  texts.every(text=>typeof text==='string'&&text.length<=800&&text.trim()&&kor.test(text))&&texts.reduce((sum,text)=>sum+text.length,0)<=PAGE_MAX_CHARS;
+}
+function pageGroups(texts){
+ const groups=[];let group=[],length=0;
+ for(const text of texts){
+  if(group.length&&(group.length>=8||length+text.length>3000)){groups.push(group);group=[];length=0;}
+  group.push(text);length+=text.length;
+ }
+ if(group.length)groups.push(group);
+ return groups;
+}
+async function pageKey(lang,path,texts){
+ const payload=JSON.stringify([CACHE_VERSION,MODEL,lang,path,texts]);
+ const digest=new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(payload)));
+ return 'page:'+CACHE_VERSION+':'+lang+':'+Array.from(digest,b=>b.toString(16).padStart(2,'0')).join('');
+}
 async function translationKey(lang,text){
  const data=new TextEncoder().encode(CACHE_VERSION+'\u0000'+MODEL+'\u0000'+lang+'\u0000'+text);
  const bytes=new Uint8Array(await crypto.subtle.digest('SHA-256',data));
@@ -31,6 +52,7 @@ export class TranslationCache {
   this.state=state;
   this.env=env;
   this.inflight=new Map();
+  this.pageInflight=new Map();
  }
  async generate(items,language,rateKey){
   if(!this.env.AI||!this.env.TRANSLATION_LIMITER)throw new Error('Missing AI or rate-limit binding');
@@ -49,10 +71,46 @@ export class TranslationCache {
   await this.state.storage.put(records);
   return new Map(Object.entries(records));
  }
+ async generatePage(body){
+  // Bound inference concurrency. Failed page assembly never persists a partial page.
+  const translations=[];let generated=0;
+  for(const texts of pageGroups(body.texts)){
+   const keys=await Promise.all(texts.map(text=>translationKey(body.language,text)));
+   const response=await this.fetch(new Request('https://translation-cache.internal/translate',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({language:body.language,texts,keys,rateKey:body.rateKey})
+   }));
+   if(!response.ok){
+    const error=new Error('Page segment translation failed');
+    if(response.status===429)error.status=429;
+    throw error;
+   }
+   const result=await response.json();
+   if(!Array.isArray(result.translations)||result.translations.length!==texts.length||result.translations.some(t=>typeof t!=='string'||!t.trim()||t.length>4800))throw Error('Invalid page segment result');
+   translations.push(...result.translations);
+   generated+=Number(result.generated)||0;
+  }
+  await this.state.storage.put({[body.pageKey]:translations});
+  return {translations,generated};
+ }
  async fetch(request){
   if(request.method!=='POST')return reply({error:'method_not_allowed'},405);
   try{
    const body=await request.json();
+   if(new URL(request.url).pathname==='/page'){
+    if(!validPageBatch(body?.texts,body?.language,body?.path)||typeof body.pageKey!=='string'||body.pageKey!==await pageKey(body.language,body.path,body.texts))return reply({error:'invalid_request'},400);
+    const stored=await this.state.storage.get(body.pageKey);
+    if(Array.isArray(stored)&&stored.length===body.texts.length&&stored.every(t=>typeof t==='string'&&t.trim()&&t.length<=4800))
+     return reply({translations:stored,generated:0},200,'HIT-PAGE-PERSISTENT');
+    let job=this.pageInflight.get(body.pageKey);
+    if(!job){
+     job=this.generatePage(body);
+     this.pageInflight.set(body.pageKey,job);
+     void job.finally(()=>{if(this.pageInflight.get(body.pageKey)===job)this.pageInflight.delete(body.pageKey);}).catch(()=>{});
+    }
+    const done=await job;
+    return reply(done,200,done.generated?'MISS-PAGE-GENERATED':'MISS-PAGE-REUSED');
+   }
    if(!validTexts(body?.texts,body?.language)||!Array.isArray(body.keys)||body.keys.length!==body.texts.length||body.keys.some(k=>typeof k!=='string'||!k.startsWith(CACHE_VERSION+':'+body.language+':')||!/^[0-9a-f]{64}$/.test(k.split(':').at(-1))))return reply({error:'invalid_request'},400);
    const unique=new Map();
    body.keys.forEach((key,i)=>{if(!unique.has(key))unique.set(key,body.texts[i]);});
@@ -123,7 +181,49 @@ async function translate(request,env,ctx){
   return reply({language:body.language,translations:output},200,hits.some(Boolean)?'MIXED':label);
  }catch(error){console.error('Translation cache access failed',error?.message);return reply({error:'translation_unavailable'},503);}
 }
+// Page manifest and translation assembly now run through the backend.
+// The browser never calls AI and reuses immutable, model-versioned page bundles.
+async function pageTranslate(request,env,ctx){
+ if(request.method!=='POST')return reply({error:'method_not_allowed'},405);
+ const site=request.headers.get('Sec-Fetch-Site');
+ if(site&&!['same-origin','none'].includes(site))return reply({error:'forbidden'},403);
+ const origin=request.headers.get('Origin');
+ if(origin&&origin!==new URL(request.url).origin)return reply({error:'forbidden'},403);
+ if(!/^application\/json(?:\s*;|$)/i.test(request.headers.get('Content-Type')||''))return reply({error:'json_required'},415);
+ if(Number(request.headers.get('Content-Length')||0)>30000)return reply({error:'too_large'},413);
+ let body;
+ try{const data=await request.text();if(data.length>30000)return reply({error:'too_large'},413);body=JSON.parse(data);}catch{return reply({error:'invalid_json'},400);}
+ if(!validPageBatch(body?.texts,body?.language,body?.path))return reply({error:'invalid_request'},400);
+ const key=await pageKey(body.language,body.path,body.texts);
+ const cache=globalThis.caches?.default;
+ const lookup=new Request(new URL('/__i18n_page_cache/'+encodeURIComponent(key),request.url));
+ try{
+  if(cache){
+   const hit=await cache.match(lookup);
+   if(hit){
+    const saved=await hit.json();
+    if(Array.isArray(saved.translations)&&saved.translations.length===body.texts.length&&saved.translations.every(t=>typeof t==='string'&&t.trim()&&t.length<=4800))
+     return reply({language:body.language,translations:saved.translations},200,'HIT-PAGE-EDGE');
+   }
+  }
+  if(!env.TRANSLATION_CACHE)return reply({error:'translation_cache_unavailable'},503);
+  const stub=env.TRANSLATION_CACHE.getByName('hkpc-'+body.language);
+  const result=await stub.fetch('https://translation-cache.internal/page',{
+   method:'POST',headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({language:body.language,path:body.path,texts:body.texts,pageKey:key,rateKey:request.headers.get('CF-Connecting-IP')||'anonymous'})
+  });
+  if(!result.ok)return reply({error:result.status===429?'rate_limited':'translation_unavailable'},result.status===429?429:503);
+  const saved=await result.json();
+  if(!Array.isArray(saved.translations)||saved.translations.length!==body.texts.length||saved.translations.some(t=>typeof t!=='string'||!t.trim()||t.length>4800))throw Error('Invalid page translation result');
+  if(cache&&ctx?.waitUntil)ctx.waitUntil(cache.put(lookup,new Response(JSON.stringify({translations:saved.translations}),{
+   headers:{'Cache-Control':'public,max-age=2592000','Content-Type':'application/json'}
+  })));
+  return reply({language:body.language,translations:saved.translations},200,result.headers.get('X-Translation-Cache')||'HIT-PAGE-PERSISTENT');
+ }catch(error){console.error('Page translation unavailable',error?.message);return reply({error:'translation_unavailable'},503);}
+}
+
 export default {async fetch(request,env,ctx){
+ if(new URL(request.url).pathname==='/api/page-translate')return pageTranslate(request,env,ctx);
  if(new URL(request.url).pathname==='/api/translate')return translate(request,env,ctx);
  const result=await env.ASSETS.fetch(request);
  if(!result.ok||request.method==='HEAD'||!(result.headers.get('content-type')||'').toLowerCase().includes('text/html'))return result;
